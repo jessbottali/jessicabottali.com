@@ -123,6 +123,8 @@ img {
 .Container {
   width: 1000px;
   margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
 }
 
 /**
@@ -131,18 +133,27 @@ img {
 
 .Grid {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.Grid {
+  display: flex;
 }
 
 .Grid-cell {
   flex: 1;
+  box-sizing: border-box;
 }
 
 /* With gutters */
 .Grid.gutters {
-  margin: -30px 0 0 -30px;
+  margin: 0 -15px;
 }
 .Grid.gutters > .Grid-cell {
-  padding: 30px 0 0 30px;
+  padding: 0 15px;
+}
+.Grid.gutters > .Grid-cell:last-child {
+  padding-bottom: 0;
 }
 
 /* Vertical Grid */
@@ -173,6 +184,40 @@ img {
 }
 
 /**
+ * Sizing
+ */
+
+.u-3of12 {
+  width: calc(100% / 12 * 3);
+  flex: none;
+}
+
+.u-4of12 {
+  width: calc(100% / 12 * 4);
+  flex: none;
+}
+
+.u-5of12 {
+  width: calc(100% / 12 * 5);
+  flex: none;
+}
+
+.u-6of12 {
+  width: calc(100% / 12 * 6);
+  flex: none;
+}
+
+.u-7of12 {
+  width: calc(100% / 12 * 7);
+  flex: none;
+}
+
+.u-8of12 {
+  width: calc(100% / 12 * 8);
+  flex: none;
+}
+
+/**
  * =======================
  */
 
@@ -182,6 +227,7 @@ img {
   background-size: cover;
   overflow: hidden;
   position: relative;
+  margin-bottom: 100px;
 }
 
 .Hero-logo {
@@ -226,7 +272,6 @@ img {
 
 .Hero-nav a:hover {
   color: #FE5220;
-  border-bottom: 1px solid currentColor;
 }
 
 /**
@@ -252,6 +297,7 @@ img {
   margin-bottom: 30px;
   cursor: pointer;
   text-decoration: none;
+  display: block;
 }
 
 .ProjectThumb-title {
@@ -271,12 +317,19 @@ img {
 }
 
 .ProjectThumb-image {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   position: relative;
+  width: 100%;
+  display: block;
 }
 
 .ProjectThumb-image img {
-  max-width: 100%;
+  width: 303px;
+  height: 303px;
+}
+
+.ProjectThumb-image.border {
+  box-shadow: 0 0 0 1px rgba(230,216,202,0.50);
 }
 
 .ProjectThumb:hover .ProjectThumb-image::after {
@@ -313,7 +366,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 50px auto;
+  margin: 50px auto 100px;
 }
 
 .Navigation-logo {
@@ -343,7 +396,7 @@ img {
 .Project {
   color: #585568;
   width: 970px;
-  margin: 100px auto 150px;
+  margin: 100px auto 100px;
 }
 
 .Project-header {
@@ -364,6 +417,8 @@ img {
   font-size: 17px;
   line-height: 22px;
   color: #3A355B;
+  opacity: 0.5;
+  margin: 10px 0;
 }
 
 .Project-content {
@@ -405,13 +460,18 @@ img {
 .ProjectImage {
   display: block;
   width: 100%;
+  margin-bottom: 30px;
 }
+/*
+.ProjectImage + .ProjectImage {
+  margin-top: 30px;
+}*/
 
 .ProjectImage.border {
   box-shadow: 0 0 0 1px rgba(230,216,202,0.50);
 }
 
 .ProjectImage.full {
-  margin: 75px 0;
+  margin: 120px 0 150px;
 }
 
