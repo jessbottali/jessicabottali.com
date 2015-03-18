@@ -47,7 +47,7 @@ html {
 }
 
 body {
-  margin: 0;
+  margin: 0px;
   background-color: #FFFCF9;
 }
 
@@ -286,7 +286,8 @@ img {
  */
 
 .Hero {
-  min-height: 100vh;
+  min-height: -webkit-calc(100vh - 40px);
+  min-height: calc(100vh - 40px);
   background: #585567 url(./assets/hero@2x.jpg) center;
   -webkit-background-size: cover;
   background-size: cover;
@@ -341,6 +342,7 @@ img {
   -webkit-transition: all 150ms ease-in-out;
   transition: all 150ms ease-in-out;
   border-bottom: 1px solid transparent;
+  display: block;
 }
 
 .Hero-nav a:hover {
@@ -559,4 +561,74 @@ img {
 
 .ProjectImage.full {
   margin: 120px 0 150px;
+}
+
+/**
+ * ===============================
+ */
+
+.ContactLink {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 300;
+  padding: 70px 0 0;
+  border-top: 1px solid hsl(28, 25%, 87%);
+  margin-top: 50px;
+  margin-bottom: 30px;
+  color: #CCC4BE;
+}
+
+.ContactLink a {
+  color: #FE5220;
+  text-decoration: none;
+}
+
+/**
+ * ===============================
+ */
+
+.Copyright {
+  font-size: 14px;
+  color: #CCC4BE;
+  line-height: 17px;
+  text-align: center;
+  margin: 30px 0 100px;
+}
+
+/**
+ * ===============================
+ */
+
+.SocialLinks {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 100px;
+}
+
+.SocialLinks a {
+  display: block;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  text-indent: -9999px;
+  margin: 0 10px;
+}
+
+.SocialLinks a[href*="dribbble"] {
+  background-image: url('./assets/dribbble.svg');
+}
+
+.SocialLinks a[href*="linkedin"] {
+  background-image: url('./assets/linkedin.svg');
+}
+
+.SocialLinks a[href*="instagram"] {
+  background-image: url('./assets/instagram.svg');
 }
