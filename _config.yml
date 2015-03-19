@@ -1,0 +1,11 @@
+# Site settings
+title: Jessica Bottali
+email: jessbottali@gmail.com
+description: "Designer and photographer from San Francisco"
+baseurl: ""
+url: "http://jessicabottali.com"
+twitter_username: jessbottali
+github_username:  jessbottali
+
+# Build settings
+markdown: kramdown

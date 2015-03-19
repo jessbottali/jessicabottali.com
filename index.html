@@ -1,16 +1,18 @@
+---
+layout: null
+---
+
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=1100">
-    <title>Jessica Bottali - Designer and photographer from San Francisco</title>
-    <link rel="stylesheet" href="build.css">
+    {% include meta.html %}
   </head>
   <body>
     <header>
       <div class="Hero">
         <h1 class="Hero-logo Logo">Jessica Bottali</h1>
         <h2 class="Hero-title">
-          I&rsquo;m Jess from SF. 
+          I&rsquo;m Jess from SF.
           I design, photograph, and go outside.
         </h2>
         <nav class="Hero-nav">
@@ -105,15 +107,7 @@
         </div>
       </main>
     </div>
-    <footer class="Container">
-      <div class="ContactLink">
-        Want to work with me? <a href="mailto:jessbottali@gmail.com">Let's Do This.</a>
-      </div>
-      <div class="SocialLinks">
-        <a href="https://dribbble.com/jessicabottali">Dribbble</a>
-        <a href="https://www.linkedin.com/profile/view?id=222502808">LinkedIn</a>
-        <a href="https://instagram.com/jessbottali">Instagram</a>
-      </div>
-    </footer>
+    {% include footer.html %}
+    {% include scripts.html %}
   </body>
 </html>

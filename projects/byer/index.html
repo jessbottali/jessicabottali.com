@@ -1,82 +1,57 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Byer - Jessica Bottali</title>
-    <meta name="viewport" content="width=1100">
-    <link rel="stylesheet" href="/build.css">
-  </head>
-  <body>
-    <header class="Navigation">
-      <h1 class="Navigation-logo">
-        <a href="/" class="Logo">Jessica Bottali</a>
-      </h1>
-      <nav class="Navigation-list">
-        <a href="/projects">Projects</a>
-        <a href="mailto:jessbottali@gmail.com">Contact</a>
-      </nav>
-    </header>
-    <article class="Project">
-      <header class="Project-header">
-        <h1 class="Project-name">Byer California</h1>
-        <h2 class="Project-tags">Graphics, Photography, Branding</h2>
-      </header>
-      <div class="Project-content">
-         Byer California is a fashion retailer that designs trendy,
-         yet affordable womens’ and girls’ garments. I worked in the photo studio there, but that name didn’t nearly describe the spectrum of design encased within our daily to-dos.
-         From textile patterns, to lookbooks and graphics, photo was a mere percentage of the role. Byer also provided me a place to really nerd out on gear, as it was the only time I’ve used a Mamiya 645DF. Medium format digital back? Holy, yes.
-      </div>
-    </article>
-    <img src="./images/byer-1@2x.jpg" class="ProjectImage full border" />
-    <div class="Container">
-      <div class="Grid gutters">
+---
+layout: default
+title: "Byer California"
+---
+
+<article class="Project">
+  <header class="Project-header">
+    <h1 class="Project-name">{{ page.title }}</h1>
+    <h2 class="Project-tags">Graphics, Photography, Branding</h2>
+  </header>
+  <div class="Project-content">
+     Byer California is a fashion retailer that designs trendy,
+     yet affordable womens’ and girls’ garments. I worked in the photo studio there, but that name didn’t nearly describe the spectrum of design encased within our daily to-dos.
+     From textile patterns, to lookbooks and graphics, photo was a mere percentage of the role. Byer also provided me a place to really nerd out on gear, as it was the only time I’ve used a Mamiya 645DF. Medium format digital back? Holy, yes.
+  </div>
+</article>
+<img src="./images/byer-1@2x.jpg" class="ProjectImage full border" />
+<div class="Container">
+  <div class="Grid gutters">
+    <div class="Grid-cell">
+      <img src="./images/byer-2@2x.jpg" width="470" height="750" class="ProjectImage border" />
+    </div>
+    <div class="Grid-cell">
+      <div class="Grid gutters vertical">
         <div class="Grid-cell">
-          <img src="./images/byer-2@2x.jpg" width="470" height="750" class="ProjectImage border" />
+          <img src="./images/byer-3@2x.jpg" width="470" height="360" class="ProjectImage border" />
         </div>
         <div class="Grid-cell">
-          <div class="Grid gutters vertical">
-            <div class="Grid-cell">
-              <img src="./images/byer-3@2x.jpg" width="470" height="360" class="ProjectImage border" />
-            </div>
-            <div class="Grid-cell">
-              <img src="./images/byer-4@2x.jpg" width="470" height="360" class="ProjectImage border" />
-            </div>
-          </div>
+          <img src="./images/byer-4@2x.jpg" width="470" height="360" class="ProjectImage border" />
         </div>
       </div>
     </div>
-    <img src="./images/byer-5@2x.jpg" class="ProjectImage full border" />
-    <div class="Container">
+  </div>
+</div>
+<img src="./images/byer-5@2x.jpg" class="ProjectImage full border" />
+<div class="Container">
+  <div class="Grid gutters">
+    <div class="Grid-cell">
+      <img src="./images/byer-6@2x.jpg" width="470" height="1020" class="ProjectImage border" />
+    </div>
+    <div class="Grid-cell">
       <div class="Grid gutters">
         <div class="Grid-cell">
-          <img src="./images/byer-6@2x.jpg" width="470" height="1020" class="ProjectImage border" />
+          <img src="./images/byer-7@2x.jpg" width="220" height="360" class="ProjectImage border" />
         </div>
         <div class="Grid-cell">
-          <div class="Grid gutters">
-            <div class="Grid-cell">
-              <img src="./images/byer-7@2x.jpg" width="220" height="360" class="ProjectImage border" />
-            </div>
-            <div class="Grid-cell">
-              <img src="./images/byer-8@2x.jpg" width="220" height="360" class="ProjectImage border" />
-            </div>
-          </div>
-          <div class="Grid gutters" style="margin-top: 0">
-            <div class="Grid-cell">
-              <img src="./images/byer-9@2x.jpg" width="470" height="630" class="ProjectImage border" />
-            </div>
-          </div>
+          <img src="./images/byer-8@2x.jpg" width="220" height="360" class="ProjectImage border" />
+        </div>
+      </div>
+      <div class="Grid gutters" style="margin-top: 0">
+        <div class="Grid-cell">
+          <img src="./images/byer-9@2x.jpg" width="470" height="630" class="ProjectImage border" />
         </div>
       </div>
     </div>
-    <footer class="Container">
-      <div class="ContactLink">
-        Want to work with me? <a href="mailto:jessbottali@gmail.com">Let's do this.</a>
-      </div>
-      <div class="SocialLinks">
-        <a href="https://dribbble.com/jessicabottali">Dribbble</a>
-        <a href="https://www.linkedin.com/profile/view?id=222502808">LinkedIn</a>
-        <a href="https://instagram.com/jessbottali">Instagram</a>
-      </div>
-    </footer>
-  </body>
-</html>
+  </div>
+</div>

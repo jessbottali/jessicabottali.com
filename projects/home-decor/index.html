@@ -1,72 +1,47 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Home Decor - Jessica Bottali</title>
-    <meta name="viewport" content="width=1100">
-    <link rel="stylesheet" href="/build.css">
-  </head>
-  <body>
-    <header class="Navigation">
-      <h1 class="Navigation-logo">
-        <a href="/" class="Logo">Jessica Bottali</a>
-      </h1>
-      <nav class="Navigation-list">
-        <a href="/projects">Projects</a>
-        <a href="mailto:jessbottali@gmail.com">Contact</a>
-      </nav>
-    </header>
-    <article class="Project">
-      <header class="Project-header">
-        <h1 class="Project-name">Home Decor</h1>
-        <h2 class="Project-tags">Product Design, Photography</h2>
-      </header>
-      <div class="Project-content">
-          Our product line at GSD is developed biannually. For
-          each season we establish several collections by theme, holiday, or medium. This start to finish work is a lot of fun. It is also quite humbling to get back a sample that looks nothing like your sketches and specs as you discover the things that you saw as direct and precise instructions are not always interpreted or translated the same way on the other end. Working with vendors around the world allows for such great reflection on language and how we casually speak.
-      </div>
-    </article>
-    <img src="./images/HomeDecor-1@2x.jpg" class="ProjectImage full border" />
-    <div class="Container">
-      <div class="Grid gutters">
-        <div class="Grid-cell u-4of12">
-          <img src="./images/HomeDecor-2@2x.jpg" class="ProjectImage" />
-        </div>
-        <div class="Grid-cell">
-          <img src="./images/HomeDecor-3@2x.jpg" class="ProjectImage border" />
-          <img src="./images/HomeDecor-4@2x.jpg" class="ProjectImage" />
-        </div>
-      </div>
+---
+layout: default
+title: "Home Decor"
+---
+
+<article class="Project">
+  <header class="Project-header">
+    <h1 class="Project-name">{{ page.title }}</h1>
+    <h2 class="Project-tags">Product Design, Photography</h2>
+  </header>
+  <div class="Project-content">
+      Our product line at GSD is developed biannually. For
+      each season we establish several collections by theme, holiday, or medium. This start to finish work is a lot of fun. It is also quite humbling to get back a sample that looks nothing like your sketches and specs as you discover the things that you saw as direct and precise instructions are not always interpreted or translated the same way on the other end. Working with vendors around the world allows for such great reflection on language and how we casually speak.
+  </div>
+</article>
+<img src="./images/HomeDecor-1@2x.jpg" class="ProjectImage full border" />
+<div class="Container">
+  <div class="Grid gutters">
+    <div class="Grid-cell u-4of12">
+      <img src="./images/HomeDecor-2@2x.jpg" class="ProjectImage" />
     </div>
-    <img src="./images/HomeDecor-5@2x.jpg" class="ProjectImage full border" />
-    <div class="Container">
-      <div class="Grid gutters">
-        <div class="Grid-cell u-6of12">
-          <img src="./images/HomeDecor-6@2x.jpg" class="ProjectImage border" />
-          <img src="./images/HomeDecor-7@2x.jpg" class="ProjectImage" />
-        </div>
-        <div class="Grid-cell">
-          <img src="./images/HomeDecor-8@2x.jpg" class="ProjectImage border" />
-        </div>
-      </div>
-      <div class="Grid gutters">
-        <div class="Grid-cell u-7of12">
-          <img src="./images/HomeDecor-9@2x.jpg" class="ProjectImage border" />
-        </div>
-        <div class="Grid-cell">
-          <img src="./images/HomeDecor-10@2x.jpg" class="ProjectImage" />
-        </div>
-      </div>
+    <div class="Grid-cell">
+      <img src="./images/HomeDecor-3@2x.jpg" class="ProjectImage border" />
+      <img src="./images/HomeDecor-4@2x.jpg" class="ProjectImage" />
     </div>
-    <footer class="Container">
-      <div class="ContactLink">
-        Want to work with me? <a href="mailto:jessbottali@gmail.com">Let's do this.</a>
-      </div>
-      <div class="SocialLinks">
-        <a href="https://dribbble.com/jessicabottali">Dribbble</a>
-        <a href="https://www.linkedin.com/profile/view?id=222502808">LinkedIn</a>
-        <a href="https://instagram.com/jessbottali">Instagram</a>
-      </div>
-    </footer>
-  </body>
-</html>
+  </div>
+</div>
+<img src="./images/HomeDecor-5@2x.jpg" class="ProjectImage full border" />
+<div class="Container">
+  <div class="Grid gutters">
+    <div class="Grid-cell u-6of12">
+      <img src="./images/HomeDecor-6@2x.jpg" class="ProjectImage border" />
+      <img src="./images/HomeDecor-7@2x.jpg" class="ProjectImage" />
+    </div>
+    <div class="Grid-cell">
+      <img src="./images/HomeDecor-8@2x.jpg" class="ProjectImage border" />
+    </div>
+  </div>
+  <div class="Grid gutters">
+    <div class="Grid-cell u-7of12">
+      <img src="./images/HomeDecor-9@2x.jpg" class="ProjectImage border" />
+    </div>
+    <div class="Grid-cell">
+      <img src="./images/HomeDecor-10@2x.jpg" class="ProjectImage" />
+    </div>
+  </div>
+</div>
