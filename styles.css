@@ -427,17 +427,6 @@ img {
   column-gap: 30px;
 }
 
-.Project-content:first-letter {
-  font-family: FreightText;
-  font-weight: 600;
-  float: left;
-  font-size: 71px;
-  color: #2C2649;
-  line-height: 1;
-  padding-right: 10px;
-  margin-top: -5px;
-}
-
 /**
  * ===============================
  */
