@@ -476,6 +476,13 @@ img {
   margin: 120px 0 150px;
 }
 
+.ProjectImage-title {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: FreightText;
+  margin: 0;
+}
+
 /**
  * ===============================
  */
