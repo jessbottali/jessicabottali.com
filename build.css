@@ -38,7 +38,7 @@
 html {
   font-size: 17px;
   color: #4B476E;
-  line-height: 22px;
+  line-height: 27px;
   font-family: AvenirNext;
   -ms-text-size-adjust: 100%;
   /* 2 */
@@ -403,6 +403,7 @@ img {
 .ProjectThumb-image img {
   width: 303px;
   height: 303px;
+  display: block;
 }
 
 .ProjectThumb-image.border {
