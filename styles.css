@@ -538,3 +538,40 @@ img {
 .SocialLinks a[href*="instagram"] {
   background-image: url('./assets/instagram.svg');
 }
+
+/**
+ * Scrolling Animation
+ */
+
+@keyframes ColourbeatAnimation {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-62%);
+  }
+}
+
+.ColourbeatAnimation {
+  position: relative;
+}
+
+.ColourbeatAnimation-container {
+  position: absolute;
+  width: 67.529215359%;
+  height: 75.147928894%;
+  overflow: hidden;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 16.272189349%;
+  border-radius: 0 0 3px 3px;
+  margin-left: -2px;
+}
+
+.ColourbeatAnimation-content {
+  animation: ColourbeatAnimation 10s cubic-bezier(0.475, 0.005, 0.525, 1.000) infinite alternate;
+}
+
+.ColourbeatAnimation-content img {
+  width: 100%;
+}
