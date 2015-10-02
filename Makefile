@@ -1,5 +1,5 @@
 build: styles.css
 	myth styles.css > build.css
 
-server:
-	serve
+serve:
+	jekyll serve
