@@ -118,6 +118,17 @@ img {
   border: 0;
 }
 
+ul {
+  list-style-type: circle;
+  list-style-position: outside;
+  padding: 0;
+  margin-left: 20px;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
 /**
  * ======================================================
  */
@@ -126,8 +137,6 @@ img {
   width: 1000px;
   margin: 0 auto;
   padding: 0 15px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -145,27 +154,19 @@ img {
   flex-wrap: wrap;
 }
 
-.Grid {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 .Grid-cell {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 /* With gutters */
 
 .Grid.gutters {
-  margin: 0 -15px;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .Grid.gutters > .Grid-cell {
@@ -235,7 +236,7 @@ img {
 
 .u-3of12 {
   width: 25%;
-  -webkit-box-flex: none;
+  -webkit-box-flex: 0;
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -243,7 +244,7 @@ img {
 
 .u-4of12 {
   width: 33.33333333333333%;
-  -webkit-box-flex: none;
+  -webkit-box-flex: 0;
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -251,7 +252,7 @@ img {
 
 .u-5of12 {
   width: 41.666666666666664%;
-  -webkit-box-flex: none;
+  -webkit-box-flex: 0;
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -259,7 +260,7 @@ img {
 
 .u-6of12 {
   width: 50%;
-  -webkit-box-flex: none;
+  -webkit-box-flex: 0;
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -267,7 +268,7 @@ img {
 
 .u-7of12 {
   width: 58.33333333333333%;
-  -webkit-box-flex: none;
+  -webkit-box-flex: 0;
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -275,10 +276,14 @@ img {
 
 .u-8of12 {
   width: 66.66666666666666%;
-  -webkit-box-flex: none;
+  -webkit-box-flex: 0;
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
+}
+
+.u-m-top-20 {
+  margin-top: 20px;
 }
 
 /**
@@ -286,10 +291,8 @@ img {
  */
 
 .Hero {
-  min-height: -webkit-calc(100vh - 40px);
   min-height: calc(100vh - 40px);
   background: #585567 url(./assets/hero@2x.jpg) center;
-  -webkit-background-size: cover;
   background-size: cover;
   overflow: hidden;
   position: relative;
@@ -312,7 +315,6 @@ img {
   top: 33%;
   left: 50%;
   -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   margin: 0;
   width: 800px;
@@ -328,7 +330,6 @@ img {
   bottom: 50px;
   left: 50%;
   -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
   transform: translateX(-50%);
 }
 
@@ -357,7 +358,6 @@ img {
 .Logo {
   display: block;
   background: url('./assets/logo@2x.png') no-repeat;
-  -webkit-background-size: 100% auto;
   background-size: 100% auto;
   text-indent: -9999px;
   width: 123px;
@@ -407,7 +407,6 @@ img {
 }
 
 .ProjectThumb-image.border {
-  -webkit-box-shadow: 0 0 0 1px rgba(230,216,202,0.50);
   box-shadow: 0 0 0 1px rgba(230,216,202,0.50);
 }
 
@@ -422,8 +421,6 @@ img {
   right: 0;
   position: absolute;
 }
-
-
 
 /**
  * =============================
@@ -520,15 +517,18 @@ img {
   column-gap: 30px;
 }
 
+.Project-content a {
+  color: #585568;
+  text-decoration: none;
+}
+
+.Project-content a:hover {
+  color: #FE5220;
+}
+
 /**
  * ===============================
  */
-
-
-
-
-
-
 
 /**
  * ===============================
@@ -546,12 +546,11 @@ img {
 }*/
 
 .ProjectImage.border {
-  -webkit-box-shadow: 0 0 0 1px rgba(230,216,202,0.50);
   box-shadow: 0 0 0 1px rgba(230,216,202,0.50);
 }
 
 .ProjectImage.full {
-  margin: 120px 0 150px;
+  margin: 100px 0 100px;
 }
 
 .ProjectImage-title {
@@ -651,13 +650,11 @@ img {
 @keyframes ColourbeatAnimation {
   from {
     -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
     transform: translateY(0);
   }
 
   to {
     -webkit-transform: translateY(-62%);
-    -ms-transform: translateY(-62%);
     transform: translateY(-62%);
   }
 }
@@ -673,7 +670,6 @@ img {
   overflow: hidden;
   left: 50%;
   -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   top: 16.272189349%;
   border-radius: 0 0 3px 3px;
@@ -687,4 +683,12 @@ img {
 
 .ColourbeatAnimation-content img {
   width: 100%;
+}
+
+/**
+ * ===============================
+ */
+
+.catalog-content {
+  padding-bottom: 30px;
 }
