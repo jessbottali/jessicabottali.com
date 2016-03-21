@@ -1,35 +1,29 @@
 ---
-layout: null
+layout: default
 ---
 
 <!DOCTYPE html>
 <html>
-  <head>
-    {% include meta.html %}
-  </head>
   <body>
     <header>
-      <div class="Hero">
-        <h1 class="Hero-logo Logo">Jessica Bottali</h1>
-        <h2 class="Hero-title">
-          I&rsquo;m Jess from SF.<br/>
-          Designer. Photographer. 7 years and counting.
-        </h2>
-        <nav class="Hero-nav">
-          <a href="/projects">Projects</a>
-          <a href="mailto:jessbottali@gmail.com">Contact</a>
-        </nav>
-      </div>
+      <main class="Container">
+        <div class="Grid gutters">
+          <div class="Grid-cell">
+            <p class="intro-content">I am a designer and photographer. <br /> I seek to hike, learn, and travel often. <br /> I call San Francisco home. </p>
+          </div>
+        </div>
+      </main>
     </header>
     <div class="Wrapper">
       <main class="Container">
         <div class="Grid gutters">
           <div class="Grid-cell">
+            <h2 class="ProjectThumb-intro">Select Work</h2>
             <a href="/projects/gsd-site" class="ProjectThumb">
               <img src="./assets/gsd-1-for-home@2x.jpg" class="ProjectThumb-image" />
               <div class="ProjectThumb-body">
                 <h2 class="ProjectThumb-title">GSD Website and Catalog</h2>
-                <div class="ProjectThumb-categories">UI / UX (in progress)</div>
+                <div class="ProjectThumb-categories">UI / UX</div>
               </div>
             </a>
           </div>
@@ -127,7 +121,5 @@ layout: null
         </div>
       </main>
     </div>
-    {% include footer.html %}
-    {% include scripts.html %}
   </body>
 </html>

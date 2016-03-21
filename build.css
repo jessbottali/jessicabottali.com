@@ -384,6 +384,13 @@ li {
   margin: 0;
 }
 
+.ProjectThumb-intro {
+  font-size: 22px;
+  font-weight: 600;
+  font-family: FreightText;
+  text-align: center;
+}
+
 .ProjectThumb:hover .ProjectThumb-title {
   color: #FE5220;
 }
@@ -432,6 +439,14 @@ li {
   font-size: 27px;
   color: #585567;
   line-height: 39px;
+}
+
+.intro-content {
+  margin-bottom: 60px;
+  margin-top: -85px;
+  /*text-align: center;*/
+  font-size: 18px;
+  line-height: 26px;
 }
 
 /**
@@ -565,16 +580,17 @@ li {
  * ===============================
  */
 
-.ContactLink {
-  text-align: center;
-  font-size: 20px;
-  font-weight: 300;
-  padding: 70px 0 0;
-  border-top: 1px solid hsl(28, 25%, 87%);
-  margin-top: 50px;
-  margin-bottom: 30px;
-  color: #CCC4BE;
-}
+ .ContactLink {
+   text-align: center;
+   font-size: 18px;
+   font-weight: 300;
+   padding: 70px 0 0;
+   border-top: 1px solid rgba(44,39,72,.3);
+   margin-top: 50px;
+   margin-bottom: -15px;
+   color: #2C2748;
+   opacity: .5;
+ }
 
 .ContactLink a {
   color: #FE5220;
@@ -620,15 +636,15 @@ li {
 }
 
 .SocialLinks a[href*="dribbble"] {
-  background-image: url('./assets/dribbble.svg');
+  background-image: url('./assets/dribbble-new-color.svg');
 }
 
 .SocialLinks a[href*="linkedin"] {
-  background-image: url('./assets/linkedin.svg');
+  background-image: url('./assets/linkedin-new-color.svg');
 }
 
 .SocialLinks a[href*="instagram"] {
-  background-image: url('./assets/instagram.svg');
+  background-image: url('./assets/instagram-new-color.svg');
 }
 
 /**
