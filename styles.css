@@ -30,6 +30,13 @@
   font-weight: 600;
 }
 
+@font-face {
+  font-family: 'FreightText';
+  src: url('/assets/FreightText-LightItalic.woff') format('woff');
+  font-style: italic;
+  font-weight: 300;
+}
+
 /**
  * 2. Prevent iOS text size adjust after orientation change, without disabling
  *    user zoom.
@@ -121,7 +128,7 @@ ul {
   list-style-type: circle;
   list-style-position: outside;
   padding: 0;
-  margin-left: 20px;
+  padding-left: 20px;
 }
 
 li {
@@ -484,12 +491,12 @@ li {
 }
 
 .ProjectWork-title {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 600;
   font-family: FreightText;
   margin: 0;
   color: #2C2748;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 /**
@@ -498,8 +505,8 @@ li {
 
 .ProjectImage {
   display: block;
-  width: 100%;
-  margin-bottom: 30px;
+  width: 95%;
+  margin: 0 auto 30px auto;
 }
 /*
 .ProjectImage + .ProjectImage {
@@ -636,6 +643,32 @@ li {
  * ===============================
  */
 
+.ImageCaption {
+  font-family: FreightText;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 17px;
+  color: #585567;
+  line-height: 22px;
+  text-align: center;
+}
+
+/**
+ * ===============================
+ */
+
+hr {
+  height: 1px;
+  background: #3A355B;
+  opacity: 0.2;
+  border: 0;
+  margin: 80px 0;
+}
+
+/**
+ * ===============================
+ */
+
 .m0 {
   margin: 0;
 }
@@ -654,4 +687,24 @@ li {
 
 .mb4 {
   margin-bottom: 40px;
+}
+
+.mb5 {
+  margin-bottom: 80px;
+}
+
+.ml0 {
+  margin-left: 0;
+}
+
+.mr0 {
+  margin-right: 0;
+}
+
+/**
+ * ===============================
+ */
+
+.w100 {
+  width: 100%;
 }
