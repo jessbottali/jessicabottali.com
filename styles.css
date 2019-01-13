@@ -506,7 +506,6 @@ li {
 .ProjectImage {
   display: block;
   width: 100%;
-  margin: 0 auto 30px auto;
 }
 /*
 .ProjectImage + .ProjectImage {
@@ -620,7 +619,7 @@ li {
   transform: translateX(-50%);
   top: 16.272189349%;
   border-radius: 0 0 3px 3px;
-  margin-left: -2px;
+  margin-left: -3px;
 }
 
 .ColourbeatAnimation-content {
