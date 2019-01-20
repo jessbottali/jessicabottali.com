@@ -1,0 +1,155 @@
+---
+layout: default
+title: "Segment Customers Page"
+---
+
+<article class="Project">
+  <header class="Project-header">
+    <h1 class="Project-name">{{ page.title }}</h1>
+    <h2 class="Project-tags">Visual, UX/UI, Wireframing, Copywriting</h2>
+  </header>
+  <div class="Project-content">
+    I recently worked with Segment to redesign their Customers page. Their existing page had grown into a long list of customer quotes, felt dry and lacked purpose. The page is primarily used by enterprise customers as social proof, but the existing page was not achieving that goal. The primary metric we sought to improve was the number of people contacting
+the sales team without increasing the number of unqualified leads. The marketing team had also created several detailed case studies and needed an easily scalable section of the page to add them. Finally, they had recently created a video telling the story of their customers that they wanted to include.
+  </div>
+</article>
+<img src="./images/1@2x.jpg" class="ProjectImage full w100" />
+<div class="Container">
+  <h2 class="ProjectWork-title">Defining the problem</h2>
+  <div class="Grid gutters">
+    <div class="Grid-cell u-5of12">
+      <h3 class="ProjectImage-title mb2">Goals</h3>
+      <ul class="m0 mb3">
+        <li>Increase the number of people contacting the sales team for a demo without increasing the number of unqualified leads.</li>
+        <li>Help customers feel confident and safe in choosing Segment.</li>
+        <li>Create a scalable system for marketing to add more case studies in the future.</li>
+        <li>Improve the visual quality of the page and improve the hierarchy of information (perceived value).</li>
+      </ul>
+      <h3 class="ProjectImage-title mb2">Audience</h3>
+      <p class="m0">
+        The main audience for this page are potential enterprise customers; usually Product Managers, Marketing Managers, or C-level executives.
+      </p>
+    </div>
+    <div class="Grid-cell u-7of12">
+      <div class="Trends-images">
+        <a href="./images/current-segment-page@2x.png">
+          <img src="./images/2@2x.png" class="ProjectImage" />
+        </a>
+        <p class="ImageCaption">Click to see current customers page in full.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Container mb5">
+  <hr />
+    <h2 class="ProjectWork-title m0 mb4">Research and wireframing </h2>
+    <div class="Grid gutters u-m-top-20">
+      <div class="Grid-cell u-6of12">
+        <div class="Home-Page-Image">
+          <img src="./images/3@2x.jpg" class="ProjectImage ml0" />
+          <p class="ImageCaption">Exploring different ways to explain how Segment works.</p>
+        </div>
+      </div>
+      <div class="Grid-cell u-6of12">
+        <div class="understanding-catalog-content">
+          <h3 class="ProjectImage-title m0 mb2">What does Segment help people do?</h3>
+          <p class="m0 mb3">
+            First, I had to better understand who Segment could be for and how they help each use case. I spent time whiteboarding Segment features and my thoughts about how we could phrase the story.
+          </p>
+          <h2 class="ProjectImage-title m0 mb2">Key steps:</h2>
+          <ul class="m0 mb3">
+            <li>
+               Sketching and whiteboarding to dive deep and explore.
+            </li>
+            <li>
+              Researching other pages for inspiration.
+            </li>
+            <li>
+              Wireframing to easily get sign-off on high-level concepts
+   without being too concerned about aesthetics.
+            </li>
+            <li>
+              Defining the story for the page and determine the content
+   and copy we would need to source.
+            </li>
+          </ul>
+          <h2 class="ProjectImage-title m0 mb2">Discoveries</h2>
+          <p class="m0">
+            From sketching and wireframing, a couple more problems were made clear. A wall of logos was contributing to making the page long, boring, and stunted the flow of the story. I also found that cohesive, large images were hard to source. If we wanted a particular imagery style, I’d have to reshoot or choose another solution.
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="Container">
+  <div class="Grid gutters">
+    <div class="Grid-cell u-5of12">
+      <div class="Catalog-content">
+        <h2 class="ProjectImage-title m0 mb2">Balancing Constraints</h2>
+
+        <p class="m0">Because marketing and UX can often have very different success metrics, I wanted to make sure that both teams felt accounted for and were excited about the end result. This began in the wireframe. I made sure everyone was happy with the direction here, before moving to visuals, so we could progress quicker.</p>
+
+        <p>Initially, I really wanted to highlight the users in a direct way by adding large profile imagery for the featured stories. This posed a problem when we were unable to attain cohesive imagery from several different customers and time constraints prevented us from capturing this imagery ourselves. </p>
+
+        <p>To compromise, and still maintain a user centric design, I adjusted the imagery back to a circular avatar they used elsewhere throughout the site, but made it more dominant within the section. I also focused on the copy. Phrases like “Meet Olga” and “You’re in great company” were ideas I implemented to speak more directly to the user. </p>
+
+        <p class="mb4">In doing so, I am seeking to present current customers in a relatable, friendly way rather than solely as a selling point to add to a list.  </p>
+
+        <h2 class="ProjectImage-title m0 mb2">Social Proof</h2>
+
+        <p class="m0">Social proof tends to visually translate to a list of logos from a variety of recognizable or reputable companies that use and like you. It’s crucial to show, but how can we share this in a more appealing way? </p>
+
+        <p>A solution I was really excited about was within the preview frame of Segment’s video. It’s still the first thing you see and a quick list, but it reveals the people behind those brands and companies once you click “Play.” </p>
+      </div>
+    </div>
+    <div class="Grid-cell u-7of12">
+      <div class="Catalog-sketch-images">
+        <img src="./images/4@2x.png" class="ProjectImage" />
+        <p class="ImageCaption">Final wireframe.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Container mb4">
+  <hr />
+  <h2 class="ProjectWork-title m0 mb4">Final design</h2>
+  <div class="Grid gutters u-m-top-20">
+    <div class="Grid-cell u-6of12">
+      <img src="./images/5@2x.png" class="ProjectImage ml0" />
+    </div>
+    <div class="Grid-cell">
+      <div class="challenges-content">
+        <h3 class="ProjectImage-title m0 mb2">Keeping it human</h3>
+        <p>As a potential customer, I need to know why I should invest in Segment. What other big companies have already done so? What it could potentially do for me? I also need to relate to the other customers that use it. Are their pain points similar to mine?</p>
+
+        <p>We began to talk about the difference between a case study and a customer story. I wanted to better represent the feeling of relief and support Segment provides by enabling teams to track and anaylize data easily.</p>
+
+        <p class="m0 mb4">One way I sought to accomplish this was by more prominently focusing on the faces of their customers. You can hear their tone in the video, but I also wanted to continue this tone throughout the page. I added images of customer offices as well to establish a fuller sense of the story; where these users are going daily.</p>
+
+        <h3 class="ProjectImage-title m0 mb2">Finding a story that relates to you</h3>
+
+        <p>The “Read our stories” section was meant to scale and eventually include a large number of customer stories. Marketing wanted to have a place to add more customer stories over time. </p>
+
+        <p class="m0 mb4">With a large list of tiles here, it may be easy to gloss over this section and not find something relevant to you. I wanted to be able to filter them by audience type and product feature so users could find something even if there were 20 or 30 stories.</p>
+
+        <h3 class="ProjectImage-title m0 mb2">Summary</h3>
+
+        <p>These are the solutions that shaped the final design:</p>
+
+        <ul class="m0 mb3">
+          <li>Customer stories so that people would want to read it</li>
+          <li>Wall of logos in the video</li>
+          <li>Large, circular avatar imagery</li>
+          <li>Filtered section of stories to account for large amount of content and multiple types of users (audience).</li>
+          <li>Humanize by creating fuller story through imagery and tone</li>
+        </ul>
+
+        <p>I sought to implement ideas that would achieve our goals in an efficient way. I’m looking forward to collecting data to see if we can better meet our balanced metric. </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="Container">
+  <img src="./images/6@2x.jpg" class="ProjectImage" />
+</div>
