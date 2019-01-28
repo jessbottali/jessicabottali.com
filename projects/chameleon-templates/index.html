@@ -1,82 +1,73 @@
 ---
 layout: default
-title: "Segment Customers Page"
+title: "Chameleon templates"
 ---
 
 <article class="Project">
   <header class="Project-header">
     <h1 class="Project-name">{{ page.title }}</h1>
-    <h2 class="Project-tags">Visual, UX/UI, Wireframing, Copywriting</h2>
+    <h2 class="Project-tags">Product, UX/UI</h2>
   </header>
   <div class="Project-content">
-    I recently worked with Segment to redesign their Customers page. Their existing page had grown into a long list of customer quotes, felt dry and lacked purpose. The page is primarily used by enterprise customers as social proof, but the existing page was not achieving that goal. The primary metric we sought to improve was the number of people contacting
-the sales team without increasing the number of unqualified leads. The marketing team had also created several detailed case studies and needed an easily scalable section of the page to add them. Finally, they had recently created a video telling the story of their customers that they wanted to include.
+  Chameleon had a really great user flow for helping users build product tours when I originally joined the team. It prompted the user to use a “step type” like a modal for example. The modal subsequently had far less choices to make about how they were going to guide their users. A modal (like all of the step types) always had certain criteria. It was prominently front and center on top of your app and was meant to halt a user, so that they’d pay more attention to the information in the modal first. Because of this, we could recommend what step types could be used for and it was super simple to learn. 
   </div>
 </article>
-<img src="./images/1@2x.jpg" class="ProjectImage full w100" />
+<img src="./images/full-bleed-img@2x.png" class="ProjectImage full w100" />
 <div class="Container">
-  <h2 class="ProjectWork-title">Defining the problem</h2>
+  <h2 class="ProjectWork-title">The problem with step types</h2>
   <div class="Grid gutters">
-    <div class="Grid-cell u-5of12">
-      <h3 class="ProjectImage-title mb2">Goals</h3>
-      <ul class="m0 mb3">
-        <li>Increase the number of people contacting the sales team for a demo without increasing the number of unqualified leads.</li>
-        <li>Help customers feel confident and safe in choosing Segment.</li>
-        <li>Create a scalable system for marketing to add more case studies in the future.</li>
-        <li>Improve the visual quality of the page and improve the hierarchy of information (perceived value).</li>
-      </ul>
-      <h3 class="ProjectImage-title mb2">Audience</h3>
-      <p class="m0">
-        The main audience for this page are potential enterprise customers; usually Product Managers, Marketing Managers, or C-level executives.
-      </p>
-    </div>
+    <div class="Project-content"style="
+    margin-bottom: 40px;
+    padding-left: 15px;
+   ">
+      <p style="margin-top: 0px;">One thing problematic with step types was that they locked you into a specific path. Once a user committed to a step type, they were forced to keep the position and it’s other criteria. They had to delete it and start over if they wanted to change how the tour was being presented. This meant it was difficult to change your mind as you were building tours. Step types also didn’t allow for much configurability. If your design guidelines were strict or the specifics of a step style didn’t work for your app, there weren’t many options to adjust it. </p>
+
+      <p>The problems with step types actually caused us to over-correct. We got rid of them to allow users to more flexibly configure their steps, however this caused a new problem. Users now lacked the ease of use that came with our initial simplicity. To solve for this, we created step templates. </p> 
+
+      </div>
     <div class="Grid-cell u-7of12">
       <div class="Trends-images">
-        <a href="./images/current-segment-page@2x.png">
-          <img src="./images/2@2x.png" class="ProjectImage" />
-        </a>
-        <p class="ImageCaption">Click to see current customers page in full.</p>
+          <img src="./images/old-step-types@2x.png" class="ProjectImage" />
+          <p class="ImageCaption">A few screens prior to implementing the design system</p>
       </div>
     </div>
   </div>
 </div>
+
 <div class="Container mb5">
   <hr />
-    <h2 class="ProjectWork-title m0 mb4">Research and wireframing </h2>
+    <h2 class="ProjectWork-title m0 mb4">Arriving at templates </h2>
     <div class="Grid gutters u-m-top-20">
       <div class="Grid-cell u-6of12">
         <div class="Home-Page-Image">
-          <img src="./images/3@2x.jpg" class="ProjectImage ml0" />
-          <p class="ImageCaption">Exploring different ways to explain how Segment works.</p>
+          <img src="./images/applying-new-system-v1-tall@2x.png" class="ProjectImage ml0" />
+          <p class="ImageCaption">Beginning to apply design system v1</p>
         </div>
       </div>
       <div class="Grid-cell u-6of12">
         <div class="understanding-catalog-content">
-          <h3 class="ProjectImage-title m0 mb2">What does Segment help people do?</h3>
-          <p class="m0 mb3">
-            First, I had to better understand who Segment could be for and how they help each use case. I spent time whiteboarding Segment features and my thoughts about how we could phrase the story.
-          </p>
-          <h2 class="ProjectImage-title m0 mb2">Key steps:</h2>
-          <ul class="m0 mb3">
-            <li>
-               Sketching and whiteboarding to dive deep and explore.
-            </li>
-            <li>
-              Researching other pages for inspiration.
-            </li>
-            <li>
-              Wireframing to easily get sign-off on high-level concepts
-   without being too concerned about aesthetics.
-            </li>
-            <li>
-              Defining the story for the page and determine the content
-   and copy we would need to source.
-            </li>
-          </ul>
-          <h2 class="ProjectImage-title m0 mb2">Discoveries</h2>
-          <p class="m0">
-            From sketching and wireframing, a couple more problems were made clear. A wall of logos was contributing to making the page long, boring, and stunted the flow of the story. I also found that cohesive, large images were hard to source. If we wanted a particular imagery style, I’d have to reshoot or choose another solution.
-          </p>
+          <div class="Grid-cell u-12of12">
+            <p class="m0 mb3">With the removal of step types, users were able to configure more granularly and had more options to style their steps to appear native in their app. However, they lost the ability to associate particular steps or styles with use cases. They also lost speed. With endless options, there were far more decisions to make. These decisions took time, but they also created a lack of confidence in the product. The more choices a user had to make, the more they were uncertain that each one prior was correct in creating the product tour they intended. Simultaneously, even if the user didn’t lose confidence, the fact that more choices were necessary meant that there was a greater likelihood some decisions would go unmade, or they’d be made and wouldn’t align with what the user expected to create. </p>
+          
+            <h3 class="ProjectImage-title mb2">Problems created by removing step types</h3>
+            <ul class="m0 mb3">
+              <li>More choices meant more confusion</li>
+              <li>More choices also meant more user effort</li>
+              <li>Loss of speed and simplicity</li>
+              <li>Loss of association to use cases</li>
+            </ul>
+          </div>
+         </div>
+          
+          <h3 class="ProjectImage-title m0 mb2">Coming to templates</h3>
+          
+          <p>After chatting with customers as well as learning that over time more users began to mention the product felt “hard to use,” we had to come up with a way to simplify it again. 
+          The product itself was growing significantly more complex because we were adding more functionality, but we couldn’t put those complexities onto the user and expect them to succeed. This is where we looked back to move forward. The initial concept of step types were great and was also when users more consistently told us how easy our product was to use. We needed to consolidate the benefit of simplicity and less decision making for the user where possible. We could then offer the option to find more variation if the simpler method wasn’t meeting their needs. </p>
+          
+          <p>Creating step templates became that compromise. I spoke with several customers about what tours they were currently building as well as what they wanted to use Chameleon for in the future. This helped me prioritize and define use cases for our templates. It also helped confirm which problems our customers were frequently looking to solve for. </p>
+          
+          <p class="m0 mb3">Additionally, I used templates as an opportunity to make customers aware of what other use cases were useful and possible with Chameleon. This was incredibly beneficial because it allowed us to guide users to more value within our product from a flow they were already in. It also excited marketing and sales because they were able to help influence users in product! </p>
+          
         </div>
       </div>
     </div>
@@ -85,71 +76,42 @@ the sales team without increasing the number of unqualified leads. The marketing
   <div class="Grid gutters">
     <div class="Grid-cell u-5of12">
       <div class="Catalog-content">
-        <h2 class="ProjectImage-title m0 mb2">Balancing Constraints</h2>
+        <h2 class="ProjectImage-title m0 mb2">Final design</h2>
+        <h3 class="ProjectImage-title mb2">Solutions that affected the final design</h3>
+        <ul class="m0 mb3">
+          <li>Providing more context to the list of templates with descriptions</li>
+          <li>Labeling templates (to categorize, draw attention to what’s new, and reveal what's interactive)</li>
+          <li>Previewing each template from this screen (allowing someone to see how it could be relevant before committing to a style)</li>
+          <li>Distinguishing separate flows for the creation of templates and application in a tour</li>
+        </ul>
 
-        <p class="m0">Because marketing and UX can often have very different success metrics, I wanted to make sure that both teams felt accounted for and were excited about the end result. This began in the wireframe. I made sure everyone was happy with the direction here, before moving to visuals, so we could progress quicker.</p>
+        <h3 class="ProjectImage-title m0 mb2">UI solutions</h3>
+        
+        <p class="m0">To connect our templates to use cases, we typically needed a greater explanation than the contents of the template itself. We added descriptions in our templates list to provide that context and allow customers to relay even more specific information. </p>
+        
+        <p class="mb4">With long lists it can be difficult to know what’s most relevant to you. As we built out more default templates and expected users to add their own as well, we needed a way to help categorize them. We first implemented labels to solve for that, but we were also able to use them as a marketing strategy. We began to label which templates were “New” and announced them as we developed them.</p>
 
-        <p>Initially, I really wanted to highlight the users in a direct way by adding large profile imagery for the featured stories. This posed a problem when we were unable to attain cohesive imagery from several different customers and time constraints prevented us from capturing this imagery ourselves. </p>
+        <p class="mb4">Previewing a template was perhaps the most influential piece of this design. Up until this point we didn’t provide the option to view steps out of the context of their tour. Being able to view a template before committing to it helped users feel confident and excited about their choice. Additionally, it gave them more context to other use cases we shared through our defaults and encouraged more tour building. </p>
 
-        <p>To compromise, and still maintain a user centric design, I adjusted the imagery back to a circular avatar they used elsewhere throughout the site, but made it more dominant within the section. I also focused on the copy. Phrases like “Meet Olga” and “You’re in great company” were ideas I implemented to speak more directly to the user. </p>
+        <h3 class="ProjectImage-title m0 mb2">Navigation solutions</h3>
 
-        <p class="mb4">In doing so, I am seeking to present current customers in a relatable, friendly way rather than solely as a selling point to add to a list.  </p>
+        <p>We created default templates for our customers to use and spark ideas, but they were also able to make their own. We initially tried to allow for these concepts to intertwine. For example, when trying to build a tour and apply a template to one of their steps, we assumed users may want the option to adjust or create a new template as they were viewing the available template list. However, this choice proved confusing. Users felt lost and couldn’t quickly determine if they were editing a step or a template, nor where the level up would take them back to. From talking to customers and sharing these early designs, we found that users thought about these two things at very different points in their journey. </p>
 
-        <h2 class="ProjectImage-title m0 mb2">Social Proof</h2>
+        <h3 class="ProjectImage-title m0 mb2">Additional learnings</h3>
 
-        <p class="m0">Social proof tends to visually translate to a list of logos from a variety of recognizable or reputable companies that use and like you. It’s crucial to show, but how can we share this in a more appealing way? </p>
+        <p class="m0 mb4">Since creating templates, we’ve been able to review which ones are used most often and see how they’re applied. Not only has that given us insight on what styles our users prefer, so we can design more defaults similarly, but it also teaches us what use cases customers tend to apply to their apps. We can also cross those use cases with what users tend to create first to determine a better understanding of their needs when they seek out Chameleon. This data is an ongoing learning, but I intend to use it to continue to support pain points and needs. </p>
 
-        <p>A solution I was really excited about was within the preview frame of Segment’s video. It’s still the first thing you see and a quick list, but it reveals the people behind those brands and companies once you click “Play.” </p>
       </div>
     </div>
     <div class="Grid-cell u-7of12">
       <div class="Catalog-sketch-images">
-        <img src="./images/4@2x.png" class="ProjectImage" />
-        <p class="ImageCaption">Final wireframe.</p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="Container mb4">
-  <hr />
-  <h2 class="ProjectWork-title m0 mb4">Final design</h2>
-  <div class="Grid gutters u-m-top-20">
-    <div class="Grid-cell u-6of12">
-      <img src="./images/5@2x.png" class="ProjectImage ml0" />
-    </div>
-    <div class="Grid-cell">
-      <div class="challenges-content">
-        <h3 class="ProjectImage-title m0 mb2">Keeping it human</h3>
-        <p>As a potential customer, I need to know why I should invest in Segment. What other big companies have already done so? What it could potentially do for me? I also need to relate to the other customers that use it. Are their pain points similar to mine?</p>
-
-        <p>We began to talk about the difference between a case study and a customer story. I wanted to better represent the feeling of relief and support Segment provides by enabling teams to track and anaylize data easily.</p>
-
-        <p class="m0 mb4">One way I sought to accomplish this was by more prominently focusing on the faces of their customers. You can hear their tone in the video, but I also wanted to continue this tone throughout the page. I added images of customer offices as well to establish a fuller sense of the story; where these users are going daily.</p>
-
-        <h3 class="ProjectImage-title m0 mb2">Finding a story that relates to you</h3>
-
-        <p>The “Read our stories” section was meant to scale and eventually include a large number of customer stories. Marketing wanted to have a place to add more customer stories over time. </p>
-
-        <p class="m0 mb4">With a large list of tiles here, it may be easy to gloss over this section and not find something relevant to you. I wanted to be able to filter them by audience type and product feature so users could find something even if there were 20 or 30 stories.</p>
-
-        <h3 class="ProjectImage-title m0 mb2">Summary</h3>
-
-        <p>These are the solutions that shaped the final design:</p>
-
-        <ul class="m0 mb3">
-          <li>Customer stories so that people would want to read it</li>
-          <li>Wall of logos in the video</li>
-          <li>Large, circular avatar imagery</li>
-          <li>Filtered section of stories to account for large amount of content and multiple types of users (audience).</li>
-          <li>Humanize by creating fuller story through imagery and tone</li>
-        </ul>
-
-        <p>I sought to implement ideas that would achieve our goals in an efficient way. I’m looking forward to collecting data to see if we can better meet our balanced metric. </p>
+        <img src="./images/template-examples@2x.png" class="ProjectImage" />
+        <p class="ImageCaption">A few default templates</p>
       </div>
     </div>
   </div>
 </div>
 
 <div class="Container">
-  <img src="./images/6@2x.jpg" class="ProjectImage" />
+  <img src="./images/templates-in-scene-closer@2x.png" class="ProjectImage" />
 </div>
