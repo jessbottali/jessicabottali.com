@@ -131,6 +131,17 @@ ul {
   padding-left: 20px;
 }
 
+ul.hyphen {
+  list-style-type: none;
+}
+ul.hyphen > li {
+  text-indent: -10px;
+}
+ul.hyphen > li:before {
+  content: "-";
+  text-indent: -10px;
+}
+
 li {
   margin-bottom: 5px;
 }
