@@ -1,0 +1,727 @@
+/* Arial is the default. ?compare-fonts=1 enables an Arial / Inter preview.
+   Inter is self-hosted under the SIL Open Font License; see assets/fonts/inter. */
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/inter/InterVariable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+html[data-preview-font="inter"] { --font-primary: "Inter", Arial, sans-serif; }
+.Font-compare {
+  position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+  z-index: 100; display: flex; align-items: center; gap: 6px;
+  padding: 8px; background: #fff; border: 1px solid #d5d5d5;
+  border-radius: 8px; box-shadow: 0 4px 20px #00000012;
+  color: #1a1a1a; font: 13px/1.4 Arial, sans-serif;
+}
+.Font-compare span { padding-inline: 8px; white-space: nowrap; }
+.Font-compare button { font: inherit; cursor: pointer; border: 0; border-radius: 4px; padding: 10px 16px; background: #f1f1f1; color: #1a1a1a; }
+.Font-compare button[aria-pressed="true"] { background: #1a1a1a; color: #fff; }
+.Font-compare button:focus-visible { outline: 2px solid #1a1a1a; outline-offset: 3px; }
+body.has-font-compare { padding-bottom: 85px; }
+:root {
+  --ink: #1a1a1a;
+  --paper: #fff;
+  --art-surface: #eef0f5;
+  /* Pangram's inspected primary token: hsl(11 100% 50%). */
+  --accent: #ff2f00;
+  --contact-hover: #e62a00; /* Accent mixed with 10% black; labels stay crisp. */
+  --contact-arrow-shift: 2px;
+  --contact-hover-duration: 350ms;
+  --muted: #686868;
+  --rule: #dedede;
+  --font-primary: Arial, Helvetica, sans-serif;
+  --reveal-duration: 500ms;
+  --intro-heading-duration: 600ms;
+  --intro-type-gap: 80ms;
+  --intro-type-pause: 450ms;
+  --intro-start-delay: 120ms;
+  --reveal-distance: 12px;
+  --reveal-stagger: 40ms;
+  --reveal-ease: cubic-bezier(.22, 1, .36, 1);
+  --explore-line-duration: 500ms;
+  --explore-arrow-duration: 350ms;
+}
+* { box-sizing: border-box; }
+html { background: var(--paper); color: var(--ink); font-family: var(--font-primary); font-size: 17px; line-height: 1.5; -webkit-text-size-adjust: 100%; scroll-padding-top: 32px; }
+/* Native anchor scrolling keeps the URL, focus, and user interruption behavior.
+   Only the homepage opts in; reduced motion below restores instant scrolling. */
+html:has(.Home) { scroll-behavior: smooth; }
+body { background: var(--paper); margin: 0; }
+::selection { background: var(--accent); color: var(--ink); }
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 6px; }
+.Skip-link { position: fixed; top: 12px; left: 12px; z-index: 10; padding: 10px 18px; background: var(--accent); transform: translateY(-160%); }
+.Skip-link:focus { transform: none; }
+.Shell, .Container { width: min(100%, 1512px); margin-inline: auto; padding-inline: clamp(22px, 4vw, 72px); }
+.Navigation { width: min(100%, 1512px); padding: 28px clamp(22px, 4vw, 72px); margin: 0 auto; min-height: 112px; display: flex; align-items: center; justify-content: space-between; }
+.Monogram { font-family: "Inter", Arial, sans-serif; display: inline-flex; align-items: baseline; text-decoration: none; font-size: 53px; font-weight: 600; line-height: 1; letter-spacing: -.105em; padding-right: 10px; }
+.Monogram-b { display: inline-block; transform-origin: 40% 85%; transform: translate(1px, 3px) rotate(13deg); transition: transform 350ms var(--reveal-ease); }
+.Monogram:hover .Monogram-b, .Monogram:focus-visible .Monogram-b { transform: translate(1px, 0) rotate(0); }
+.Navigation-list { display: flex; gap: 30px; align-items: center; }
+.Navigation-list a { color: var(--ink); font-family: var(--font-primary); font-size: 15px; line-height: 1.4; letter-spacing: -.02em; text-transform: none; margin: 0; padding: 10px 0; text-decoration: none; transition: none; }
+.Navigation-list a:hover { color: var(--ink); }
+.Navigation-list .Contact-action { padding: 11px 18px; background: var(--accent); border-radius: 3px; }
+.Intro { padding-top: clamp(42px, 6vw, 100px); padding-bottom: clamp(64px, 8vw, 120px); }
+.Eyebrow { margin: 0 0 30px; font-size: 15px; letter-spacing: -.01em; min-height: 1.5em; }
+.Visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+/* Blank first paint without changing layout. Animated copies are aria-hidden;
+   assistive tech gets the complete greeting, not letter-by-letter updates. */
+html.is-home-intro [data-intro]:not(.is-revealing):not(.is-intro-shown),
+html.is-home-intro:not(.is-intro-started) [data-intro-typing],
+html.is-home-intro .Work,
+html.is-home-intro .Site-footer { opacity: 0; visibility: hidden; }
+.Intro h1 { max-width: 1200px; font-family: var(--font-primary); font-weight: 400; font-size: clamp(48px, 7.7vw, 116px); letter-spacing: -.065em; line-height: 1.01; margin: 0; }
+.Intro-line { display: block; }
+.Intro-muted { color: #767676; }
+.Intro-bottom { margin-top: 44px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+.Intro-support { margin: 0; color: var(--muted); font-family: var(--font-primary); font-size: clamp(17px, 1.4vw, 20px); font-weight: 400; letter-spacing: -.025em; line-height: 1.5; }
+.Text-link { position: relative; text-decoration: none; padding-bottom: 6px; white-space: nowrap; font-size: 15px; }
+.Intro .Text-link { display: inline-flex; align-items: center; gap: 22px; width: max-content; flex: 0 0 auto; }
+.Intro .Text-link .Arrow-down { margin-left: 0; }
+.Text-link::after { content: ""; position: absolute; inset: auto 0 0; height: 1px; background: currentColor; transform-origin: left center; }
+.Text-link.has-explore-cue::after { transform: scaleX(0); }
+.Text-link.has-explore-cue.has-cue-played::after { transform: scaleX(1); }
+.Text-link.is-cue-playing::after { animation: explore-underline var(--explore-line-duration) var(--reveal-ease) both; }
+.Text-link.has-explore-cue .Arrow-down { opacity: 0; }
+.Text-link.has-cue-completed .Arrow-down { opacity: 1; }
+.Text-link.is-cue-playing .Arrow-down { animation: explore-arrow-dip var(--explore-arrow-duration) var(--reveal-ease) var(--explore-line-duration) both; }
+.Text-link.is-cue-playing:not(.has-cue-completed) .Arrow-down { animation-name: explore-arrow-enter; }
+@keyframes explore-underline { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes explore-arrow-dip { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(2px); } }
+@keyframes explore-arrow-enter { 0% { opacity: 0; transform: translateY(0); } 50% { opacity: 1; transform: translateY(2px); } 100% { opacity: 1; transform: translateY(0); } }
+.Arrow-down { display: inline-block; width: 18px; height: 18px; margin-left: 22px; vertical-align: -.2em; }
+.Section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; border-top: 1px solid var(--rule); padding: 22px 0 28px; }
+.Section-heading h2 { font-size: 18px; font-weight: 400; margin: 0; letter-spacing: -.025em; }
+.Section-heading > span { color: var(--muted); font-size: 14px; }
+.Work-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; row-gap: 44px; }
+.Work-item--hero { grid-column: 1 / -1; }
+.Work-item--wide { grid-column: span 2; }
+/* The double-width cover follows its single-column row mates' media height. */
+@media (min-width: 1101px) {
+  .Work-item--wide .Work-card { display: flex; flex-direction: column; height: 100%; }
+  .Work-item--wide .Work-media { flex: 1; aspect-ratio: auto; min-height: 0; }
+  .Work-item--wide .Work-caption { flex: none; }
+}
+.Work-item { min-width: 0; }
+.Work-card { display: block; text-decoration: none; }
+.Work-media { position: relative; overflow: hidden; background: var(--art-surface); aspect-ratio: 4 / 5; border-radius: 20px; }
+.Work-media::before { content: ""; position: absolute; inset: 0; background: rgb(0 0 0 / 20%); border-radius: inherit; opacity: 0; pointer-events: none; z-index: 1; }
+.Work-card:focus-visible .Work-media::before { opacity: 1; }
+@media (hover: hover) { .Work-card:hover .Work-media::before { opacity: 1; } }
+.Work-media--light::after { content: ""; position: absolute; inset: 0; border: 1px solid rgb(0 0 0 / 5%); border-radius: inherit; pointer-events: none; z-index: 2; }
+.Home .Work-item:not(.Work-item--hero) .Work-media::after { content: ""; position: absolute; inset: 0; border: 1px solid rgb(0 0 0 / 5%); border-radius: inherit; pointer-events: none; z-index: 2; }
+.Badge, .Card-arrow { z-index: 3; }
+.Work-media img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.Work-item:not(.Work-item--hero) .Work-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; padding: 0; }
+.Work-card[href="/projects/byer/"] .Work-media img { object-position: right center; }
+/* Chameleon retains its wider composition; GSD returns to its larger crop. */
+.Home--card-preview .Work-card:is([href="/projects/chameleon-design-system/"], [href="/projects/chameleon-onboarding/"]) .Work-media img { object-fit: contain; object-position: 50% 40%; }
+.Home--card-preview .Work-card[href="/projects/gsd-site/"] .Work-media img { object-fit: cover; object-position: center; }
+.Home--card-preview .Work-card[href="/projects/shopify-product-links/"] .Work-media img:not(.Work-private-lock) { object-fit: contain; object-position: center; padding: 0; }
+.Home--card-preview .Work-card[href="/projects/global-star-design/"] .Work-media img { object-position: 75% center; }
+/* The latter two are portrait compositions: fit their width, letting the
+   existing card clip any excess height instead of adding side gutters. */
+.Home--card-preview .Work-card:is([href="/projects/chameleon-design-system/"], [href="/projects/chameleon-onboarding/"]) .Work-media img { width: 100%; height: auto; top: 0; bottom: auto; object-position: center top; }
+/* Rules fills the card height, cropping the sides rather than letterboxing. */
+.Home--card-preview .Work-media--envoy-rules img { object-fit: cover; }
+/* Per-project resting crops; preserve natural proportions and hover scaling. */
+.Home--card-preview .Work-card:is([href="/projects/chameleon-templates/"], [href="/projects/segment/"]) .Work-media img {
+  width: 100%; height: auto; top: 0; bottom: auto; object-fit: contain; object-position: center top;
+}
+.Home--card-preview .Work-card[href="/projects/segment/"] .Work-media img { top: 50%; translate: 0 -50%; }
+.Home--card-preview .Work-card:is([href="/projects/chess-set/"], [href="/projects/colourbeat-mobile/"]) .Work-media img {
+  width: 100%; height: 100%; inset: 0; translate: none; object-fit: cover; object-position: center;
+}
+/* Overscan moving images so their scroll drift never exposes the card background. */
+.Work-item:not(.Work-item--hero) .Work-media img[data-drift] { top: -18px; bottom: auto; height: calc(100% + 36px); }
+.Home { overflow-x: clip; }
+.Work-item--hero .Work-media { aspect-ratio: 2.15; width: calc(100% + 2 * var(--hero-bleed, 0px)); margin-inline: calc(-1 * var(--hero-bleed, 0px)); border-radius: var(--hero-radius, 20px); }
+/* The M2 cover keeps its native canvas proportions, without gray letterboxing. */
+.Home .Work-item--hero .Work-media { aspect-ratio: 16 / 9; }
+.Work-item--featured img { transform: translate3d(0, var(--drift-y, 0px), 0); width: 100%; height: 100%; object-fit: contain; padding: 7%; }
+.Work-media--gsd { background: var(--art-surface); }
+.Work-media--system { background: var(--art-surface); }
+.Badge { position: absolute; top: 20px; left: 20px; background: var(--accent); color: var(--ink); padding: 7px 12px; border-radius: 999px; font-size: 12px; line-height: 1.3; }
+.Arrow-up-right { display: inline-block; width: 1em; height: 1em; vertical-align: -.12em; flex-shrink: 0; }
+.Contact-action .Arrow-up-right, .Footer-contact .Arrow-up-right { margin-left: 8px; }
+.Footer-social .Arrow-up-right { width: .9em; height: .9em; margin-left: 3px; }
+.Card-arrow .Arrow-up-right { width: 19px; height: 19px; }
+.Card-arrow { position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--paper); color: var(--ink); font-size: 23px; }
+.Work-card:hover .Card-arrow, .Work-card:focus-visible .Card-arrow { background: var(--accent); }
+.Work-caption { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; padding-top: 15px; }
+.Work-item--hero .Work-caption { flex-direction: row; align-items: baseline; justify-content: space-between; }
+.Work-caption h3 { margin: 0; font-family: var(--font-primary); font-size: 19px; line-height: 1.3; font-weight: 400; letter-spacing: -.035em; }
+.Work-caption > span { font-size: 12px; color: var(--muted); text-align: left; }
+.Work-card h3, .Work-card:hover h3, .Work-card:focus-visible h3 { text-decoration: none; }
+/* Homepage card experiment. The baseline remains at ?cards=classic.
+   Shadow: Shopify Polaris tokens v9.4.2 shadow-300, resolved at its 16px root
+   to preserve the source geometry on this site's 17px root. Motion uses the
+   existing 500ms reveal clock, not an inferred Shopify motion token. */
+.Home {
+  --card-hover-shadow: 0 4px 6px -2px rgba(26, 26, 26, .20);
+  --card-lift: 4px;
+  /* Directional-link reference 24: retain its 2px / 350ms / easing. */
+  --card-arrow-shift: 2px;
+  --card-arrow-duration: 350ms;
+  /* Local frosted surfaces, never whole-artwork blur. Opaque fallback first. */
+  --card-glass-fill: #fff;
+  --card-glass-shadow: 0 2px 8px rgb(26 26 26 / 10%), inset 0 1px 0 rgb(255 255 255 / 75%);
+}
+.Home .Work-private-lock {
+  border: 1px solid rgb(255 255 255 / 72%);
+  box-shadow: var(--card-glass-shadow);
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .Home { --card-glass-fill: rgb(255 255 255 / 76%); }
+  .Home .Work-private-lock {
+    -webkit-backdrop-filter: blur(12px) saturate(1.35);
+    backdrop-filter: blur(12px) saturate(1.35);
+  }
+}
+.Home .Work-media--envoy-desks { background: var(--art-surface); }
+.Work-phones {
+  position: absolute; inset: clamp(24px, 3.4vw, 52px) clamp(22px, 4vw, 72px) 32px;
+  display: flex; justify-content: center; align-items: center;
+  gap: clamp(14px, 4vw, 64px);
+}
+.Home .Work-item .Work-phones img {
+  position: static; display: block; width: auto; height: 100%; max-width: 29%;
+  padding: 0; object-fit: contain; transform: none;
+}
+/* The flat link owns hover; only its inner surface lifts (reference 19 analogy). */
+.Home--card-preview .Work-media { --card-gradient-height: max(46.4%, 136px); transition: transform var(--reveal-duration) var(--reveal-ease), box-shadow var(--reveal-duration) var(--reveal-ease); }
+.Home .Work-phones { inset: 0; display: block; }
+/* Original assigned/change recording stills, staggered like the supplied crop. */
+.Home .Work-item .Work-phones img { position: absolute; width: 53%; height: auto; max-width: none; object-fit: contain; }
+.Home .Work-item .Work-phones img:first-child { inset: auto auto 20px 20px; z-index: 2; }
+.Home .Work-item .Work-phones img:last-child { inset: 20px 20px auto auto; z-index: 1; }
+.Home--card-preview .Work-card[href="/projects/shopify-whatsapp-commerce/"] .Work-media img:not(.Work-private-lock) { object-fit: contain; padding: 5%; }
+.Home--card-preview .Work-media::before { display: none; }
+/* Composite the artwork, blur, and gradient before applying one rounded clip.
+   Keep the shadow and outline on the outer media, outside this clipping group. */
+.Home--card-preview .Work-surface {
+  position: absolute; inset: 0; border-radius: inherit;
+  clip-path: inset(0 round var(--hero-radius, 20px));
+}
+.Home--card-preview .Work-surface::before {
+  content: ""; position: absolute; pointer-events: none;
+  inset: auto 0 0; height: var(--card-gradient-height); opacity: 1; z-index: 2;
+  background: linear-gradient(to top, #fff 0%, rgb(255 255 255 / 96%) 28%, rgb(255 255 255 / 65%) 62%, rgb(255 255 255 / 0%) 100%);
+}
+.Home--card-preview .Work-item--hero .Work-media { --card-gradient-height: max(23.3333%, 106.6667px); }
+.Home--card-preview .Work-item:not(.Work-item--hero) .Work-surface::before { display: none; }
+.Home--card-preview .Work-item:not(.Work-item--hero) .Work-surface::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: rgb(0 0 0 / 10%); opacity: 0;
+  transition: opacity var(--reveal-duration) var(--reveal-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .Home--card-preview .Work-item:not(.Work-item--hero) .Work-card:hover .Work-surface::after { opacity: 1; }
+}
+.Home--card-preview .Work-item:not(.Work-item--hero) .Work-card:focus-visible .Work-surface::after { opacity: 1; }
+/* Individual scale composes with the existing scroll-drift transform, so the
+   hover clock never adds lag to scrolling or scales captions/gradient layers. */
+.Home--card-preview .Work-item:not(.Work-item--hero) .Work-card img {
+  scale: 1; transition: scale var(--reveal-duration) var(--reveal-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .Home--card-preview .Work-item:not(.Work-item--hero) .Work-card:hover img { scale: 1.025; }
+}
+.Home--card-preview .Work-item:not(.Work-item--hero) .Work-card:focus-visible img { scale: 1.025; }
+@media (prefers-reduced-motion: reduce) {
+  .Home--card-preview .Work-item:not(.Work-item--hero) .Work-card img { scale: 1 !important; transition: none; }
+}
+/* Legacy backdrop bands are inactive in the current homepage: smaller cards
+   opt out, and the static Product Links feature has no blur-band markup. */
+.Work-blur { display: none; }
+.Home--card-preview .Work-blur { display: block; position: absolute; inset: auto 0 0; height: var(--card-gradient-height); z-index: 1; pointer-events: none; }
+.Home--card-preview .Work-item:not(.Work-item--hero) .Work-blur { display: none; }
+.Work-blur > span { position: absolute; inset: 0; }
+.Work-blur > span:nth-child(1) {
+  -webkit-backdrop-filter: blur(1px); backdrop-filter: blur(1px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 20%, #000 28%, transparent 48%);
+  mask-image: linear-gradient(to bottom, transparent, #000 20%, #000 28%, transparent 48%);
+}
+.Work-blur > span:nth-child(2) {
+  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 20%, #000 42%, #000 52%, transparent 72%);
+  mask-image: linear-gradient(to bottom, transparent 20%, #000 42%, #000 52%, transparent 72%);
+}
+.Work-blur > span:nth-child(3) {
+  -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 45%, #000 67%, #000 76%, transparent 96%);
+  mask-image: linear-gradient(to bottom, transparent 45%, #000 67%, #000 76%, transparent 96%);
+}
+.Work-blur > span:nth-child(4) {
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 70%, #000 96%);
+  mask-image: linear-gradient(to bottom, transparent 70%, #000 96%);
+}
+/* The bare arrow shares the title row, pinned to the card rail. Captions and
+   arrow containers stay still; only the existing small glyph shifts on hover. */
+.Home .Work-caption { display: grid; grid-template-columns: minmax(0, 1fr) 19px; column-gap: 16px; row-gap: 5px; align-items: center; padding-top: 15px; }
+.Home .Work-caption h3 { grid-column: 1; grid-row: 1; color: var(--ink); }
+.Home .Work-caption > span:not(.Card-arrow) { grid-column: 1 / -1; grid-row: 2; display: block; margin: 0; text-align: left; color: var(--muted); }
+.Home .Card-arrow {
+  position: static; display: grid; grid-column: 2; grid-row: 1; align-self: center;
+  width: 19px; height: 19px; margin: 0; border: 0; border-radius: 0; background: transparent;
+  box-shadow: none; color: var(--ink); transition: color var(--card-arrow-duration) var(--reveal-ease);
+}
+.Home .Work-card:hover .Card-arrow,
+.Home .Work-card:focus-visible .Card-arrow { background: transparent; color: var(--accent); }
+@media (prefers-reduced-transparency: reduce) {
+  .Home { --card-glass-fill: #fff; }
+  .Home .Work-private-lock { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+.Home .Card-arrow .Arrow-up-right { transition: transform var(--card-arrow-duration) var(--reveal-ease); }
+@media (hover: hover) and (pointer: fine) {
+  .Home--card-preview .Work-card:hover .Work-media { transform: translateY(calc(-1 * var(--card-lift))); box-shadow: var(--card-hover-shadow); }
+  .Home .Work-card:hover .Card-arrow .Arrow-up-right { transform: translate(var(--card-arrow-shift), calc(-1 * var(--card-arrow-shift))); }
+}
+.Home--card-preview .Work-card:focus-visible .Work-media { transform: translateY(calc(-1 * var(--card-lift))); box-shadow: var(--card-hover-shadow); }
+.Home .Work-card:focus-visible .Card-arrow .Arrow-up-right { transform: translate(var(--card-arrow-shift), calc(-1 * var(--card-arrow-shift))); }
+@media (prefers-reduced-motion: reduce) {
+  .Home--card-preview .Work-card .Work-media,
+  .Home .Work-card .Card-arrow .Arrow-up-right { transform: none !important; }
+}
+.Site-footer { margin-top: 110px; padding-top: 32px; padding-bottom: 36px; border-top: 1px solid var(--rule); }
+.Footer-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.Footer-top h2 { font-size: clamp(36px, 5vw, 70px); font-weight: 400; line-height: 1.1; letter-spacing: -.055em; margin: 0; }
+.Footer-contact { text-decoration: none; background: var(--accent); padding: 13px 20px; border-radius: 3px; white-space: nowrap; }
+/* Reference24 adaptation: existing diagonal arrow, no chevron morph or button
+   movement. Keep the hit area stable and apply equivalent keyboard feedback. */
+:is(.Navigation-list .Contact-action, .Footer-contact) {
+  transition: background-color var(--contact-hover-duration) var(--reveal-ease);
+}
+:is(.Contact-action, .Footer-contact) .Arrow-up-right {
+  transition: transform var(--contact-hover-duration) var(--reveal-ease);
+}
+@media (hover: hover) {
+  :is(.Navigation-list .Contact-action, .Footer-contact):hover { background: var(--contact-hover); }
+  :is(.Contact-action, .Footer-contact):hover .Arrow-up-right {
+    transform: translate(var(--contact-arrow-shift), calc(-1 * var(--contact-arrow-shift)));
+  }
+}
+:is(.Navigation-list .Contact-action, .Footer-contact):focus-visible { background: var(--contact-hover); }
+:is(.Contact-action, .Footer-contact):focus-visible .Arrow-up-right {
+  transform: translate(var(--contact-arrow-shift), calc(-1 * var(--contact-arrow-shift)));
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.Navigation-list .Contact-action, .Footer-contact) { transition: none; }
+  :is(.Contact-action, .Footer-contact) .Arrow-up-right { transform: none !important; transition: none; }
+}
+.Footer-bottom { margin-top: 65px; display: flex; justify-content: space-between; align-items: baseline; gap: 20px; font-size: 13px; color: var(--muted); }
+.Footer-social { display: flex; gap: 24px; }
+.Footer-social a { text-decoration: none; padding-block: 8px; }
+/* Title-only cover fallback. Product Links has one owner-requested public
+   M1 still on Home; other protected media remain encrypted. */
+.Work-private-cover { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 28px 28px 100px; background: var(--art-surface); }
+.Work-private-brand { font-size: 14px; color: var(--muted); }
+.Work-private-name { font-size: clamp(30px, 3vw, 44px); line-height: 1.08; letter-spacing: -.045em; max-width: 260px; }
+.Work-item--private .Work-media img.Work-private-lock { position: absolute; z-index: 3; inset: 24px 24px auto auto; width: 40px; height: 40px; padding: 9px; border-radius: 50%; background: var(--card-glass-fill, #fff); scale: 1 !important; transform: none; object-fit: contain; }
+.Protected-gate { min-height: 420px; }
+.Protected-eyebrow { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin: 0 0 20px; }
+.Protected-eyebrow img { flex: none; }
+.Protected-intro { max-width: 560px; font-size: 17px; line-height: 1.65; color: var(--muted); }
+.Protected-form { margin-top: 30px; max-width: 610px; }
+.Protected-form label { display: block; font-size: 14px; margin-bottom: 9px; }
+.Protected-fields { display: flex; gap: 12px; }
+.Protected-fields input { min-width: 0; flex: 1; padding: 12px 14px; border: 1px solid #a3a3a3; border-radius: 3px; background: var(--paper); color: var(--ink); font: inherit; font-size: 16px; }
+.Protected-submit { padding: 13px 20px; border: 0; border-radius: 3px; background: var(--accent); color: var(--ink); font: inherit; font-size: 15px; cursor: pointer; }
+.Protected-submit:hover, .Protected-submit:focus-visible { background: var(--contact-hover); }
+.Protected-submit:disabled { cursor: wait; }
+.Protected-fields input:focus-visible, .Protected-submit:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.Protected-message { min-height: 1.6em; font-size: 13px; line-height: 1.6; margin: 12px 0 0; }
+.Protected-request { margin-top: 24px; font-size: 14px; color: var(--muted); }
+.Protected-content[hidden] { display: none; }
+/* The heading is focused for reading order, not presented as an input/control. */
+.Protected-content .Project-name:focus { outline: none; }
+.Protected-content img[data-private-image]:not([data-private-ready]) { visibility: hidden; }
+.Protected-demo { width: 100%; min-width: 0; }
+.Case-art--phones > .Protected-demo { width: min(32%, 265px); flex: none; }
+.Protected-demo-screen { position: relative; }
+.Protected-content .Protected-demo-screen > img { width: 100%; }
+@media (max-width: 760px) {
+  .Protected-content .Case-art--phones { flex-direction: column; align-items: center; }
+  .Protected-content .Case-art--phones > :is(img, .Protected-demo) { width: min(100%, 320px); }
+}
+.Protected-demo-screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.Protected-demo-screen video[hidden] { display: none; }
+.Case-metrics .Case-metric-before { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
+.Case-metrics h3 { margin: 12px 0 6px; font-size: 16px; line-height: 1.4; }
+.Case-metrics--comparison > div { display: block; }
+.Case-evidence-note { max-width: 780px; font-size: 14px; line-height: 1.7; color: var(--muted); margin: 24px 0 0; }
+@media (max-width: 520px) {
+  .Protected-fields { flex-direction: column; }
+}
+/* Shared case-study typography. Legacy content uses the same layout components. */
+.Project-page { --font-primary: "Inter", Arial, sans-serif; font-family: var(--font-primary); }
+.Project-page .Container { max-width: 1200px; }
+.Project { width: min(970px, calc(100% - 44px)); color: var(--ink); margin: 64px auto; }
+.Project-name { font-family: var(--font-primary); color: var(--ink); font-weight: 400; font-size: clamp(30px, 3.2vw, 44px); line-height: 1.12; letter-spacing: -.05em; }
+.Project-tags { color: var(--muted); opacity: 1; font-size: 14px; line-height: 1.5; font-weight: 400; margin: 16px 0 28px; }
+.Project-content { column-count: 1; max-width: 760px; font-size: 18px; line-height: 1.65; letter-spacing: -.015em; }
+.Project-page h2, .Project-page h3 { font-weight: 500; }
+.Project-page .Project-tags { font-weight: 400; }
+.Project-page .ProjectWork-title { font-size: clamp(25px, 3vw, 34px); line-height: 1.2; letter-spacing: -.035em; }
+.Project-page .ProjectImage-title { font-size: 20px; line-height: 1.4; letter-spacing: -.025em; }
+.Project-page .ProjectImage { border-radius: 20px; }
+.Project-page .ProjectImage.full { margin-block: 64px; }
+.Project-content a { color: var(--ink); text-decoration: underline; }
+.ProjectWork-title, .ProjectImage-title, .ProjectThumb-title, .ProjectThumb-intro, .ImageCaption { font-family: var(--font-primary); color: var(--ink); }
+.ProjectThumb, .PageIntro { color: var(--ink); }
+.ProjectThumb-categories { opacity: 1; color: var(--muted); }
+.ProjectThumb-image { background: var(--art-surface); }
+.ProjectThumb:hover .ProjectThumb-title { color: var(--ink); text-decoration: underline; }
+.ProjectImage { max-width: 100%; height: auto; }
+.ImageCaption { font-style: normal; color: var(--muted); }
+/* New case studies retain the title / introduction / image / section rhythm
+   of the existing projects, with shorter text and readable line lengths. */
+.Case-study .Project { margin-top: 45px; margin-bottom: 44px; }
+.Case-back { display: inline-block; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 30px; }
+.Case-figure { max-width: 1320px; margin-block: 0 56px; }
+/* Reuse the homepage's reversible full-bleed → inset hero. Only the opening
+   artwork changes; its Shell anchor, captions, and subsequent galleries stay put. */
+.Case-study { overflow-x: clip; }
+[data-scroll-hero] :is(.Case-art, [data-scroll-media]) {
+  width: calc(100% + 2 * var(--hero-bleed, 0px));
+  margin-inline: calc(-1 * var(--hero-bleed, 0px));
+  border-radius: var(--hero-radius, 20px);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-scroll-hero] :is(.Case-art, [data-scroll-media]) { width: 100%; margin-inline: 0; border-radius: 20px; }
+}
+.Case-art { border-radius: 20px; background: var(--art-surface); padding: clamp(20px, 4vw, 60px); overflow: hidden; border: 1px solid rgb(0 0 0 / 5%); }
+.Case-art img { display: block; width: 100%; height: auto; }
+.Case-art--rules { background: var(--art-surface); }
+.Case-art--rules img { border-radius: 8px; }
+.Case-art--exploration { background: var(--art-surface); }
+.Case-art--exploration img { max-width: 900px; margin-inline: auto; border-radius: 8px; }
+.Case-art--desks { display: grid; grid-template-columns: 1.7fr .75fr; align-items: center; justify-content: center; gap: clamp(16px, 4vw, 60px); background: var(--art-surface); }
+.Case-art--desks .Case-desk-admin { max-width: 720px; }
+.Case-phone-demo { width: 100%; max-width: 250px; justify-self: center; }
+.Case-demo-screen { position: relative; aspect-ratio: 884 / 1740; }
+.Case-demo-screen .Case-desk-phone { display: block; width: 100%; height: 100%; }
+.Case-video-demo .Case-demo-screen { aspect-ratio: auto; }
+.Case-video-demo video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.Case-video-demo video[hidden] { display: none; }
+.Case-demo-video {
+  position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  -webkit-mask-image: url("/assets/envoy/desks-phone-mask.png");
+  mask-image: url("/assets/envoy/desks-phone-mask.png");
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+.Case-phone-demo.has-video .Case-demo-video { opacity: 1; }
+.Case-phone-demo.has-video img { opacity: 0; }
+.Case-demo-toggle {
+  position: absolute; z-index: 3; left: 50%; bottom: 12px; transform: translateX(-50%);
+  display: block; width: max-content; max-width: calc(100% - 24px); min-height: 44px;
+  margin: 0; border: 1px solid rgb(255 255 255 / 18%); padding: 8px 14px;
+  font: inherit; font-size: 12px; line-height: 1.5; color: #fff; text-align: center;
+  background: rgb(26 26 26 / 80%); border-radius: 999px; cursor: pointer;
+}
+.Case-demo-toggle[hidden] { display: none; }
+.Case-demo-toggle:hover { color: #fff; background: var(--ink); }
+.Case-demo-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* Quiet at rest on desktop; keyboard focus reveals the same control. Touch
+   has no hover, so keep the real playback action visible. No new motion. */
+@media (hover: hover) and (pointer: fine) {
+  :is(.Case-demo-screen, .Protected-demo-screen) > .Case-demo-toggle { opacity: 0; pointer-events: none; }
+  :is(.Case-demo-screen, .Protected-demo-screen):hover > .Case-demo-toggle,
+  :is(.Case-demo-screen, .Protected-demo-screen) > .Case-demo-toggle:focus-visible { opacity: 1; pointer-events: auto; }
+}
+.Case-art--flow { padding: clamp(16px, 3vw, 44px); }
+.Case-art--phones { display: flex; justify-content: center; align-items: flex-start; gap: clamp(20px, 7vw, 120px); background: var(--art-surface); }
+.Case-art--phones img { width: min(32%, 265px); }
+/* WhatsApp: Figma’s merchant-web + overlapping buyer-phone composition. */
+.Case-art--whatsapp { --wa-art-pad: clamp(20px, 4vw, 60px); display: flex; justify-content: center; padding: var(--wa-art-pad); }
+/* Bound short-screen height so the unchanged full-frame playback guard can pass. */
+.Wa-composition { position: relative; width: 100%; max-width: calc((100svh - 48px - 2 * var(--wa-art-pad)) * 1.73); aspect-ratio: 1.73; }
+.Wa-web { position: absolute; top: 0; left: 0; width: 90%; filter: drop-shadow(0 4px 8px rgb(26 26 26 / 12%)); }
+.Wa-web > img, .Wa-web .Protected-demo-screen { border-radius: 12px; overflow: hidden; }
+.Wa-web .Protected-demo-screen { aspect-ratio: 1712 / 984; }
+/* Crop only recorded desktop exterior; original video bytes remain intact. */
+.Wa-web .Protected-demo-screen video { inset: auto; top: -4.878049%; left: -6.074766%; width: 112.149533%; height: 109.756098%; max-width: none; object-fit: fill; }
+.Wa-phone { position: relative; aspect-ratio: 1350 / 2760; }
+.Wa-composition > .Wa-phone { position: absolute; width: 22.4%; right: 0; bottom: 0; }
+.Wa-phone-window { position: absolute; left: 5.333%; top: 2.5%; width: 89.334%; height: 95%; border-radius: 12.438% / 5.72%; overflow: hidden; background: #000; }
+.Wa-phone-window > img, .Wa-phone-window .Protected-demo, .Wa-phone-window .Protected-demo-screen { width: 100%; height: 100%; }
+.Wa-phone-window img, .Wa-phone-window video { width: 100%; height: 100%; object-fit: contain; }
+.Case-art .Wa-phone > .Wa-phone-frame { position: relative; z-index: 2; display: block; width: 100%; height: auto; border-radius: 0; pointer-events: none; }
+.Case-art--wa-buyers { display: flex; justify-content: center; gap: clamp(24px, 7vw, 100px); }
+.Case-art--wa-buyers .Wa-phone { width: min(34%, 300px); flex: none; }
+@media (max-width: 760px) {
+  .Case-art--wa-buyers { flex-direction: column; align-items: center; }
+  .Case-art--wa-buyers .Wa-phone { width: min(100%, 300px); }
+}
+.Case-figure figcaption { margin-top: 14px; font-size: 13px; line-height: 1.6; color: var(--muted); max-width: 780px; }
+.Case-section { max-width: 1200px; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 5vw, 80px); padding-block: 40px 52px; }
+.Case-step { display: block; color: var(--muted); font-size: 12px; margin-bottom: 17px; }
+.Case-section h2, .Case-outcome h2 { margin: 0; font-size: clamp(25px, 2.6vw, 34px); font-weight: 400; letter-spacing: -.04em; line-height: 1.2; max-width: 530px; }
+.Case-prose { max-width: 620px; }
+.Case-prose p { font-size: 16px; line-height: 1.75; letter-spacing: -.015em; margin: 0 0 20px; }
+.Case-prose p:last-child { margin-bottom: 0; }
+.Case-outcome { max-width: 1200px; padding-top: 38px; padding-bottom: 48px; }
+.Case-outcome h2 { max-width: 750px; }
+.Case-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; border-top: 1px solid var(--rule); margin-top: 32px; padding-top: 28px; }
+[aria-labelledby="commerce-outcome"] .Case-metrics { border-top: 0; }
+.Case-metrics strong { display: block; font-weight: 400; font-size: clamp(38px, 4.5vw, 62px); line-height: 1.1; letter-spacing: -.055em; }
+.Case-metrics p { font-size: 14px; line-height: 1.6; margin: 12px 0 0; max-width: 270px; }
+.Case-note { font-size: 12px; color: var(--muted); line-height: 1.7; max-width: 750px; margin-top: 28px; }
+.Case-next { max-width: 1200px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-top: 32px; }
+.Case-next a { text-decoration: none; font-size: 22px; letter-spacing: -.03em; }
+.Case-next a > span:first-child { display: block; font-size: 12px; letter-spacing: 0; color: var(--muted); margin-bottom: 12px; }
+.Case-next a:last-child { font-size: 14px; }
+/* Underlines share Explore's approved left-to-right draw. Backgrounds wrap
+   naturally across inline text without adding layout or moving the label. */
+:is(.Navigation-list a:not(.Contact-action), .Footer-social a, .Case-back, .Case-next a, .Case-prose a, .Project-content a, .Case-figure figcaption a) {
+  color: inherit; text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat; background-position: left calc(100% - var(--link-line-inset, 0px));
+  background-size: 0% 1px;
+}
+.Navigation-list a { --link-line-inset: 6px; }
+.Footer-social a { --link-line-inset: 6px; }
+:is(.Case-prose a, .Project-content a, .Case-figure figcaption a) { background-size: 100% 1px; }
+:is(.Navigation-list a:not(.Contact-action), .Footer-social a, .Case-back, .Case-next a, .Case-prose a, .Project-content a, .Case-figure figcaption a):hover {
+  background-size: 100% 1px; animation: link-underline var(--explore-line-duration) var(--reveal-ease) both;
+}
+:is(.Navigation-list a:not(.Contact-action), .Footer-social a, .Case-back, .Case-next a, .Case-prose a, .Project-content a, .Case-figure figcaption a):focus-visible { background-size: 100% 1px; }
+.Text-link:hover:not(.is-cue-playing)::after { animation: explore-underline var(--explore-line-duration) var(--reveal-ease) both; }
+@keyframes link-underline { from { background-size: 0% 1px; } to { background-size: 100% 1px; } }
+.Case-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 28px; }
+.Case-gallery--single { grid-template-columns: minmax(0, 1fr); }
+/* Static opening-screen milestones, followed later by two real vision demos.
+   Shared neutral frames preserve each source without cropping or upscaling. */
+.Case-milestones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 24px; padding-top: 24px; }
+.Case-milestone { margin: 0; min-width: 0; }
+.Case-milestone-kicker { margin: 0 0 8px; font-size: 12px; line-height: 1.5; color: var(--muted); }
+.Case-milestone h3 { margin: 0 0 18px; font-size: 18px; line-height: 1.35; letter-spacing: -.025em; }
+.Case-milestone .Case-art { aspect-ratio: 16 / 9; background: var(--art-surface); }
+.Case-milestone .Case-art > img { width: 100%; height: 100%; object-fit: contain; }
+.Case-merchant-stills .Case-art { aspect-ratio: 520 / 299; background: transparent; border: 0; border-radius: 0; }
+.Case-merchant-stills .Case-art img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.Case-image-open { display: block; width: 100%; height: 100%; padding: 0; margin: 0; border: 0; background: none; cursor: zoom-in; }
+.Case-image-open:disabled { cursor: default; }
+.Case-image-open:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+html.has-case-image-modal { overflow: hidden; }
+/* Transitions.dev 06-modal: original entry/exit timing, scale and easing. */
+.Case-image-dialog {
+  --modal-open-dur: 250ms; --modal-close-dur: 150ms;
+  --modal-scale: .96; --modal-scale-close: .96;
+  --modal-ease: cubic-bezier(.22, 1, .36, 1);
+  --image-view-max-width: 1200px; --image-view-inset: 48px;
+  box-sizing: border-box; width: fit-content; max-width: calc(100vw - var(--image-view-inset));
+  max-height: calc(100dvh - var(--image-view-inset)); margin: auto; padding: 0; border: 0;
+  background: transparent; color: var(--ink); overflow: visible;
+}
+.Case-image-dialog::backdrop { background: rgb(26 26 26 / 75%); opacity: 0; transition: opacity var(--modal-open-dur, 250ms) var(--modal-ease, cubic-bezier(.22, 1, .36, 1)); }
+.Case-image-dialog.is-open::backdrop { opacity: 1; }
+.Case-image-dialog.is-closing::backdrop { opacity: 0; transition-duration: var(--modal-close-dur, 150ms); }
+.Case-image-panel { position: relative; border-radius: 12px; }
+.Case-image-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: -1px; padding: 0; }
+.Case-image-close {
+  position: absolute; top: 12px; right: 12px; z-index: 2;
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border: 1px solid rgb(255 255 255 / 85%); border-radius: 50%;
+  background: rgb(255 255 255 / 78%); color: var(--ink);
+  box-shadow: 0 2px 8px rgb(26 26 26 / 14%);
+  -webkit-backdrop-filter: blur(12px) saturate(1.35); backdrop-filter: blur(12px) saturate(1.35);
+  cursor: pointer;
+}
+.Case-image-close svg { display: block; width: 19px; height: 19px; pointer-events: none; }
+.Case-image-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.Case-image-viewport {
+  width: min(var(--image-view-max-width), calc(100vw - var(--image-view-inset)), calc((100dvh - var(--image-view-inset)) * var(--image-aspect, 1.74)));
+  aspect-ratio: var(--image-aspect, 1.74); border-radius: inherit; overflow: auto;
+}
+.Case-image-viewport:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.Case-image-viewport img { display: block; width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
+.Case-image-viewport.is-zoomed { width: min(var(--image-view-max-width), calc(100vw - var(--image-view-inset))); height: min(var(--image-native-height), calc(100dvh - var(--image-view-inset))); aspect-ratio: auto; }
+@media (max-width: 760px) { .Case-image-dialog { --image-view-inset: 24px; } }
+.Case-image-viewport.is-zoomed img { width: auto; height: auto; max-width: none; cursor: zoom-out; }
+.t-modal {
+  transform-origin: center;
+  transform: scale(var(--modal-scale));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--modal-open-dur) var(--modal-ease),
+    opacity var(--modal-open-dur) var(--modal-ease);
+  will-change: transform, opacity;
+}
+.t-modal.is-open { transform: scale(1); opacity: 1; pointer-events: auto; }
+.t-modal.is-closing {
+  transform: scale(var(--modal-scale-close)); opacity: 0; pointer-events: none;
+  transition:
+    transform var(--modal-close-dur) var(--modal-ease),
+    opacity var(--modal-close-dur) var(--modal-ease);
+}
+@media (prefers-reduced-motion: reduce) {
+  .t-modal { transition: none !important; }
+  .Case-image-dialog::backdrop { transition: none !important; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .Case-image-close { background: #fff; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .Case-image-close { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+/* Restore old-site groupings without bringing back the old type or geometry
+   classes. Fractions are evidence from each original row, not equal tiles. */
+.Case-layout-grid {
+  display: grid; grid-template-columns: var(--case-columns, minmax(0, 1fr));
+  align-items: start; gap: 28px;
+}
+.Case-layout-grid--story { column-gap: clamp(32px, 5vw, 80px); }
+.Case-layout-column { min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+.Case-layout-column .Case-section {
+  display: block; width: 100%; max-width: none; margin: 0; padding: 0;
+}
+.Case-layout-column .Case-section-heading { margin-bottom: 20px; }
+.Case-study--legacy > .Case-section--heading-only { max-width: 1320px; }
+.Case-layout-column .Case-prose { max-width: none; }
+.Case-layout-column .Case-section--continuation .Case-prose { grid-column: auto; }
+.Case-art--embed { width: fit-content; max-width: 100%; margin-inline: auto; }
+[data-scroll-media] { overflow: hidden; }
+.Case-layout-grid[data-scroll-media] .Case-art { width: 100%; margin-inline: 0; border-radius: 20px; }
+@media (max-width: 760px) {
+  .Case-layout-grid { grid-template-columns: minmax(0, 1fr); }
+}
+/* GSD: pair the original story groups with their artwork. The website uses
+   02/03, research photos use 04–06, and the laptop uses 07. Keep that semantic
+   reading order when the columns collapse; do not interleave unrelated images. */
+.Case-figure--with-aside {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start; gap: clamp(32px, 5vw, 80px);
+}
+.Case-figure--preview-aside { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.Case-figure--preview-aside > .Case-gallery-item { grid-column: span 2; margin-top: 35px; margin-right: 12px; }
+.Case-figure--preview-aside .Case-step { line-height: 1.5; }
+.Case-aside { min-width: 0; display: grid; gap: 40px; align-content: start; }
+.Case-aside .Case-section--stacked { display: block; width: 100%; padding: 0; }
+.Case-aside .Case-section-heading { margin-bottom: 20px; }
+/* Let the right collection composition establish the row height. The left
+   screenshot fills that frame without a mat, stretching, or an added canvas. */
+.Case-gallery--collections { align-items: stretch; }
+.Case-gallery--collections > .Case-gallery-item:first-child .Case-art { position: relative; height: 100%; }
+.Case-gallery--collections > .Case-gallery-item:first-child img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
+@media (max-width: 760px) {
+  .Case-figure--with-aside { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .Case-figure--preview-aside > .Case-gallery-item { grid-column: auto; margin-top: 0; margin-right: 0; }
+  .Case-gallery--collections > .Case-gallery-item:first-child .Case-art { height: auto; }
+  .Case-gallery--collections > .Case-gallery-item:first-child img { position: static; height: auto; }
+}
+.Case-gallery-item { margin: 0; min-width: 0; }
+.Case-art--legacy { background: var(--art-surface); padding: clamp(12px, 2.5vw, 36px); }
+/* Preserve white/patterned artwork and photographs edge-to-edge instead of
+   adding a differently colored surround. Transparent cutouts keep the gray. */
+.Case-art--full-bleed { padding: 0; background: transparent; }
+.Case-art--full-bleed img { border-radius: 0; }
+.Case-art--legacy a { display: block; }
+.Case-art--legacy iframe { display: block; max-width: 100%; margin-inline: auto; border: 0; }
+.Case-art--legacy .ColourbeatAnimation { margin: 0; }
+.Case-study--legacy .Case-prose h3 { font-size: 18px; line-height: 1.4; letter-spacing: -.025em; margin: 28px 0 14px; }
+.Case-study--legacy .Case-prose h3:first-child { margin-top: 0; }
+.Case-study--legacy .Case-prose :is(p, ul, ol) { margin: 0 0 20px; font-size: 16px; line-height: 1.75; letter-spacing: -.015em; }
+.Case-study--legacy .Case-prose :is(ul, ol) { padding-left: 22px; }
+.Case-study--legacy .Case-prose li + li { margin-top: 8px; }
+.Case-section--heading-only { display: block; padding-bottom: 24px; }
+.Case-section--continuation .Case-prose { grid-column: 2; }
+.Project-year { white-space: nowrap; }
+.Work-media--envoy-desks { background: var(--art-surface); }
+.Work-media--envoy-rules { background: var(--art-surface); }
+.Project-index-new { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 44px; }
+.Project-index-new h2 { font-size: 19px; margin: 0; letter-spacing: -.035em; }
+@media (max-width: 520px) { .Project-index-new { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 760px) {
+  .Case-section { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-block: 26px 40px; }
+  .Case-section--continuation .Case-prose { grid-column: 1; }
+  .Case-gallery, .Case-milestones { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .Case-study .Project { margin-top: 32px; }
+  .Case-figure { margin-bottom: 28px; }
+  .Case-art--desks { grid-template-columns: 1.4fr .7fr; }
+  .Case-metrics { gap: 22px; }
+}
+@media (max-width: 520px) {
+  .Case-art--desks { grid-template-columns: minmax(0, 1fr); }
+  .Case-art--desks .Case-phone-demo { width: 48%; max-width: 180px; }
+  .Case-art--phones img { width: 42%; }
+  .Case-metrics { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .Case-metrics > div { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 18px; align-items: start; }
+  .Case-metrics p { margin: 0; }
+  .Case-art--flow { padding-inline: 8px; }
+}
+/* Progressive enhancement: content is visible if JS or the observer fails.
+   Scroll entry is an approved adaptation of Transitions.dev 18, without blur. */
+[data-reveal].is-pending, [data-intro].is-pending { opacity: 0; transform: translateY(var(--reveal-distance)); }
+[data-reveal].is-revealing, [data-intro].is-revealing { animation: portfolio-reveal var(--reveal-duration) var(--reveal-ease) both; animation-delay: var(--reveal-delay, 0ms); }
+.Intro-support.is-pending, .Intro .Text-link.is-pending, .Navigation.is-pending { transform: none; }
+.Intro-support.is-revealing, .Intro .Text-link.is-revealing, .Navigation.is-revealing { animation-name: portfolio-fade; }
+.Intro-line.is-revealing { animation-duration: var(--intro-heading-duration); }
+/* Internal/session returns are one quiet shared fade, without typing, rise,
+   or stagger. The underline and arrow retain their own subsequent sequence. */
+html.is-home-return [data-intro].is-pending { transform: none; }
+html.is-home-return [data-intro].is-revealing {
+  animation-name: portfolio-fade;
+  animation-duration: var(--reveal-duration);
+  animation-delay: 0ms;
+}
+@keyframes portfolio-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes portfolio-reveal { from { opacity: 0; transform: translateY(var(--reveal-distance)); } to { opacity: 1; transform: none; } }
+@media (max-width: 1100px) {
+  .Work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .Work-media { aspect-ratio: 1 / 1; }
+  .Work-item--hero .Work-media { aspect-ratio: 1.85; }
+  .Work-item--wide .Work-media { aspect-ratio: 2 / 1; }
+}
+@media (max-width: 760px) {
+  .Navigation { min-height: 90px; padding-block: 22px; }
+  .Monogram { font-size: 44px; }
+  .Navigation-list { gap: 20px; }
+  .Intro { padding-top: 40px; }
+  .Intro-bottom { align-items: flex-start; flex-direction: column; margin-top: 30px; gap: 28px; }
+  .Desktop-break { display: none; }
+  .Section-heading > span { display: none; }
+  .Work-grid { gap: 36px 18px; }
+  .Work-caption { display: block; }
+  .Work-caption h3 { font-size: 17px; }
+  .Work-caption > span { display: block; text-align: left; margin-top: 5px; }
+  .Badge { left: 12px; top: 12px; font-size: 11px; }
+  .Card-arrow { width: 30px; height: 30px; right: 12px; bottom: 12px; font-size: 20px; }
+  .Grid.gutters { margin-inline: -10px; }
+  .Grid.gutters > .Grid-cell { padding-inline: 10px; }
+  .Project-content { column-count: 1; }
+  .Footer-top { align-items: flex-start; flex-direction: column; gap: 28px; }
+  .Footer-bottom { flex-direction: column; gap: 18px; margin-top: 42px; }
+}
+@media (max-width: 520px) {
+  .Work-grid { grid-template-columns: minmax(0, 1fr); row-gap: 36px; }
+  .Work-item--wide { grid-column: auto; }
+  .Work-item--wide .Work-media { aspect-ratio: 1 / 1; }
+  .Work-media { aspect-ratio: 1 / 1; }
+  .Work-item--hero .Work-media { aspect-ratio: 1.25; }
+  .Work-caption { display: flex; }
+  .Work-caption > span { text-align: left; margin: 0; }
+  .Work-item--hero .Work-caption { flex-direction: column; align-items: flex-start; }
+  .Work-item--hero img { padding: 4%; }
+  .Grid > [class*="u-"] { width: 100%; flex: auto; }
+  .Footer-social { gap: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  [data-reveal].is-pending, [data-intro].is-pending { opacity: 1; transform: none; }
+  html.is-home-intro [data-intro]:not(.is-revealing):not(.is-intro-shown),
+  html.is-home-intro:not(.is-intro-started) [data-intro-typing],
+  html.is-home-intro .Work, html.is-home-intro .Site-footer { opacity: 1; visibility: visible; }
+  .Work-item--featured img { transform: none; }
+  .Work-item--hero .Work-media { width: 100%; margin-inline: 0; border-radius: 20px; }
+  .Text-link.has-explore-cue::after { transform: scaleX(1); }
+  .Text-link.has-explore-cue .Arrow-down { opacity: 1; }
+  .Case-phone-demo.has-video .Case-demo-video { opacity: 0; }
+  .Case-phone-demo.has-video img { opacity: 1; }
+  .Monogram-b, .Monogram:hover .Monogram-b, .Monogram:focus-visible .Monogram-b { transform: none; }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive"><meta name="referrer" content="no-referrer">
+<title>Shopify Product Links - Jessica Bottali</title>
+<link rel="stylesheet" href="/build.css">
+<link rel="stylesheet" href="/refresh.css">
+<link rel="canonical" href="/projects/shopify-product-links/">
+<script>
+  (() => {
+    // Record landings on every page, not only Home. Session-only state never
+    // prevents a deliberate homepage reload from replaying the full entrance.
+    let visited = false;
+    try {
+      visited = sessionStorage.getItem('portfolio-visited') === '1';
+      sessionStorage.setItem('portfolio-visited', '1');
+    } catch { /* Same-origin referrer still handles internal returns. */ }
+    const isHome = false;
+    if (!isHome || matchMedia('(prefers-reduced-motion: reduce)').matches || location.hash) return;
+    const navigation = performance.getEntriesByType('navigation')[0]?.type;
+    const internal = document.referrer && new URL(document.referrer).origin === location.origin;
+    document.documentElement.classList.add('is-home-intro');
+    if (navigation !== 'reload' && (visited || internal || navigation === 'back_forward')) {
+      document.documentElement.classList.add('is-home-return');
+    }
+    // Before-first-paint state has a fail-safe if the main script cannot finish.
+    window.__homeIntroFailsafe = setTimeout(() => {
+      document.documentElement.classList.remove('is-home-intro', 'is-home-return', 'is-intro-started');
+      document.querySelectorAll('[data-intro]').forEach(e => e.classList.remove('is-pending', 'is-revealing'));
+      const copy = document.querySelector('[data-typing-copy]');
+      if (copy) copy.textContent = document.querySelector('[data-intro-typing] .Visually-hidden').textContent;
+      dispatchEvent(new Event('home-intro-timeout'));
+    }, 8000);
+  })();
+</script>
+<link rel="icon" type="image/png" href="/assets/favicon-jb-16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/assets/favicon-jb-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/favicon-jb-96.png" sizes="96x96">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon-jb.png" sizes="180x180">
+
+  </head>
+  <body class="Project-page">
+    <a class="Skip-link" href="#main-content">Skip to content</a>
+    <header class="Navigation">
+      <div class="Navigation-logo">
+        <a href="/" class="Monogram" aria-label="Jessica Bottali — home"><span aria-hidden="true">J</span><span class="Monogram-b" aria-hidden="true">b</span></a>
+      </div>
+      <nav class="Navigation-list">
+        <a href="/#selected-work">Work</a>
+        <a class="Contact-action" href="mailto:jessbottali@gmail.com">Let’s talk <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </nav>
+    </header>
+    <main id="main-content"><div data-protected-project="shopify-product-links" data-bundle="/assets/protected/shopify-product-links.json">
+  <section class="Project Protected-gate" data-protected-gate aria-labelledby="private-title">
+    <a class="Case-back" href="/#selected-work">← Selected work</a>
+    <p class="Protected-eyebrow"><img src="/assets/lock.svg" width="16" height="16" alt=""> Private case study</p>
+    <h1 class="Project-name" id="private-title">Shopify Product Links</h1>
+    <form class="Protected-form" method="post">
+      <label for="project-password">Portfolio password</label>
+      <div class="Protected-fields">
+        <input id="project-password" type="password" autocomplete="current-password" required aria-describedby="access-message" autocapitalize="none" spellcheck="false">
+        <button class="Protected-submit" type="submit" disabled>Unlock projects</button>
+      </div>
+      <p class="Protected-message" id="access-message" data-access-message role="status" aria-live="polite"></p>
+    </form>
+    <noscript><p>JavaScript is required to decrypt this private project. Its text and images are not included in this page.</p></noscript>
+    <p class="Protected-request">Need access? <a href="mailto:jessbottali@gmail.com">Get in touch</a>.</p>
+  </section>
+  <div class="Protected-content" data-protected-content hidden></div>
+</div>
+</main>
+    <footer class="Site-footer Shell">
+  <div class="Footer-top"><h2>Have something in mind?</h2><a class="Footer-contact" href="mailto:jessbottali@gmail.com">Let’s talk <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  <div class="Footer-bottom"><span>Jessica Bottali · Design &amp; photography</span><nav class="Footer-social" aria-label="Social links"><a href="mailto:jessbottali@gmail.com">Email <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.linkedin.com/profile/view?id=222502808">LinkedIn <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://github.com/jessbottali">GitHub <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div>
+</footer>
+
+    <script src="/index.js" defer></script>
+
+<script src="/protected-project.js" defer></script>
+
+  </body>
+</html>

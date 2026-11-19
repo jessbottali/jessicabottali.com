@@ -1,147 +1,115 @@
----
-layout: default
----
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title> - Jessica Bottali</title>
+<link rel="stylesheet" href="/build.css">
+<link rel="stylesheet" href="/refresh.css">
+<link rel="canonical" href="/">
+<script>
+  (() => {
+    // Record landings on every page, not only Home. Session-only state never
+    // prevents a deliberate homepage reload from replaying the full entrance.
+    let visited = false;
+    try {
+      visited = sessionStorage.getItem('portfolio-visited') === '1';
+      sessionStorage.setItem('portfolio-visited', '1');
+    } catch { /* Same-origin referrer still handles internal returns. */ }
+    const isHome = true;
+    if (!isHome || matchMedia('(prefers-reduced-motion: reduce)').matches || location.hash) return;
+    const navigation = performance.getEntriesByType('navigation')[0]?.type;
+    const internal = document.referrer && new URL(document.referrer).origin === location.origin;
+    document.documentElement.classList.add('is-home-intro');
+    if (navigation !== 'reload' && (visited || internal || navigation === 'back_forward')) {
+      document.documentElement.classList.add('is-home-return');
+    }
+    // Before-first-paint state has a fail-safe if the main script cannot finish.
+    window.__homeIntroFailsafe = setTimeout(() => {
+      document.documentElement.classList.remove('is-home-intro', 'is-home-return', 'is-intro-started');
+      document.querySelectorAll('[data-intro]').forEach(e => e.classList.remove('is-pending', 'is-revealing'));
+      const copy = document.querySelector('[data-typing-copy]');
+      if (copy) copy.textContent = document.querySelector('[data-intro-typing] .Visually-hidden').textContent;
+      dispatchEvent(new Event('home-intro-timeout'));
+    }, 8000);
+  })();
+</script>
+<link rel="icon" type="image/png" href="/assets/favicon-jb-16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/assets/favicon-jb-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/favicon-jb-96.png" sizes="96x96">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon-jb.png" sizes="180x180">
+
+  </head>
   <body>
-    <header>
-      <main class="Container">
-        <div class="Grid gutters">
-          <div class="Grid-cell">
-            <p class="intro-content">I'm a product designer and photographer. <br /> I hike and travel often. <br /> I call San Francisco home. </p>
-          </div>
-        </div>
-      </main>
+    <a class="Skip-link" href="#main-content">Skip to content</a>
+    <header class="Navigation" data-intro="3">
+      <div class="Navigation-logo">
+        <a href="/" class="Monogram" aria-label="Jessica Bottali — home"><span aria-hidden="true">J</span><span class="Monogram-b" aria-hidden="true">b</span></a>
+      </div>
+      <nav class="Navigation-list">
+        <a href="/#selected-work">Work</a>
+        <a class="Contact-action" href="mailto:jessbottali@gmail.com">Let’s talk <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </nav>
     </header>
-    <div class="Wrapper">
-      <main class="Container">
-        <div class="Grid gutters">
-          <div class="Grid-cell">
-            <h2 class="ProjectThumb-intro">Select Work</h2>
-            <a href="/projects/gsd-site" class="ProjectThumb">
-              <img src="./assets/gsd-1-for-home@2x.jpg" class="ProjectThumb-image" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">GSD Website and Catalog</h2>
-                <div class="ProjectThumb-categories">UX/UI</div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="Grid gutters">
-          <div class="Grid-cell u-4of12">
-            <a href="/projects/chameleon-design-system" class="ProjectThumb">
-              <img src="/assets/design-system-alt@2x.png" class="ProjectThumb-image border" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">Chameleon Design System</h2>
-                <div class="ProjectThumb-categories">Product Design, UX/UI, Visual Design</div>
-              </div>
-            </a>
-          </div>
-          <div class="Grid-cell u-4of12">
-            <a class="ProjectThumb" href="/projects/chameleon-onboarding">
-              <img src="/assets/onboarding@2x.png" class="ProjectThumb-image border" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">Chameleon Onboarding</h2>
-                <div class="ProjectThumb-categories">Product Design, UX/UI</div>
-              </div>
-            </a>
-          </div>
-          <div class="Grid-cell u-4of12">
-            <a href="/projects/chameleon-templates" class="ProjectThumb">
-              <img src="/assets/templates@2x.png" class="ProjectThumb-image" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">Chameleon Templates</h2>
-                <div class="ProjectThumb-categories">Product Design, UX/UI</div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="Grid gutters">
-          <div class="Grid-cell u-7of12">
-            <a href="/projects/chess-set" class="ProjectThumb">
-              <img src="./assets/chess-key@2x.jpg" class="ProjectThumb-image" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">Chess Set</h2>
-                <div class="ProjectThumb-categories">Product Design, Photography, 3D Printing</div>
-              </div>
-            </a>
-          </div>
-          <div class="Grid-cell u-5of12">
-            <a href="/projects/global-star-design" class="ProjectThumb">
-              <img src="./assets/gsd@2x.jpg" class="ProjectThumb-image" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">Global Star Design</h2>
-                <div class="ProjectThumb-categories">Brand Identity, Photography</div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="Grid gutters">
-          <div class="Grid-cell u-4of12">
-            <a href="/projects/segment" class="ProjectThumb">
-              <img src="/assets/segment@2x.png" class="ProjectThumb-image" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">Segment Customers Page</h2>
-                <div class="ProjectThumb-categories">UX/UI, Visual Design</div>
-              </div>
-            </a>
-          </div>
-          <div class="Grid-cell u-4of12">
-            <a class="ProjectThumb" href="/projects/colourbeat-mobile">
-              <img src="/projects/colourbeat-mobile/home@2x.jpg" class="ProjectThumb-image border" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">Colourbeat Mobile</h2>
-                <div class="ProjectThumb-categories">UX/UI</div>
-              </div>
-            </a>
-          </div>
-          <div class="Grid-cell u-4of12">
-            <a href="/projects/colourbeat-landing" class="ProjectThumb">
-              <img src="/projects/colourbeat-landing/home@2x.png" class="ProjectThumb-image" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">Colourbeat Web</h2>
-                <div class="ProjectThumb-categories">UX/UI</div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="Grid gutters">
-          <div class="Grid-cell u-4of12">
-            <a href="/projects/south-east-asia" class="ProjectThumb">
-              <img src="./assets/thailand@2x.jpg" class="ProjectThumb-image" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">South East Asia</h2>
-                <div class="ProjectThumb-categories">Photography</div>
-              </div>
-            </a>
-          </div>
-          <div class="Grid-cell u-8of12">
-            <a href="/projects/byer" class="ProjectThumb">
-              <img src="./assets/byer@2x.jpg" class="ProjectThumb-image" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">Byer California</h2>
-                <div class="ProjectThumb-categories">Visual Design, Photography, Brand</div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="Grid gutters">
-          <div class="Grid-cell">
-            <a href="/projects/across-america" class="ProjectThumb">
-              <img src="./assets/across-america.jpg" class="ProjectThumb-image" />
-              <div class="ProjectThumb-body">
-                <h2 class="ProjectThumb-title">Soil and Pavement: Across America</h2>
-                <div class="ProjectThumb-categories">Photography</div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </main>
+    <main id="main-content" class="Home Home--card-preview">
+  <section class="Intro Shell" aria-labelledby="intro-title">
+    <p class="Eyebrow" data-intro="typing" data-intro-typing><span class="Visually-hidden">Hi. I’m Jess.</span><span data-typing-copy aria-hidden="true">Hi. I’m Jess.</span></p>
+    <h1 id="intro-title"><span class="Intro-line" data-intro="0">Product designer.</span> <span class="Intro-line" data-intro="1">Photographer.</span> <span class="Intro-line Intro-muted" data-intro="2">Always exploring.</span></h1>
+    <div class="Intro-bottom">
+      <h2 class="Intro-support" data-intro="3">I design digital experiences, hike and travel often,<br class="Desktop-break"> and call the SF Bay Area home.</h2>
+      <a class="Text-link" data-intro="3" href="#selected-work">Have a look <svg class="Arrow-down" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M12 4v16M5 13l7 7 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
+  </section>
+  <section class="Work Shell" id="selected-work" aria-label="Portfolio projects">
+    <div class="Work-grid">
+      <article class="Work-item Work-item--hero Work-item--private"><a class="Work-card" href="/projects/shopify-product-links/" data-reveal><div class="Work-media"><div class="Work-surface"><img src="/assets/artwork/shopify-product-links-cover.webp" width="2560" height="1440" alt="Shopify product editor with a product preview behind it" loading="eager" fetchpriority="high"><img class="Work-private-lock" src="/assets/lock.svg" width="24" height="24" alt=""></div></div><div class="Work-caption"><h3>Shopify</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Product design · Password protected</span></div></a></article>
+      <article class="Work-item Work-item--wide Work-item--private" data-reveal><a class="Work-card" href="/projects/shopify-whatsapp-commerce/"><div class="Work-media"><div class="Work-surface"><img class="Work-commerce-cover" src="/assets/artwork/shopify-whatsapp-cover.webp" width="1920" height="1110" alt="Shopify merchant setup beside a buyer’s WhatsApp conversation in a silver phone" loading="lazy"><img class="Work-private-lock" src="/assets/lock.svg" width="24" height="24" alt=""></div></div><div class="Work-caption"><h3>Shopify 2</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Product design · Password protected</span></div></a></article>
+      <article class="Work-item Work-item--featured" data-reveal>
+        <a class="Work-card" href="/projects/envoy-desks/">
+          <div class="Work-media Work-media--envoy-desks"><div class="Work-surface"><div class="Work-phones">
+            <img src="/assets/envoy/desks-assigned.png" alt="Assigned desk C5 on the map, with reservation details" width="884" height="1740" loading="lazy">
+            <img src="/assets/envoy/desks-change.png" alt="Available desks on the interactive office map" width="884" height="1740" loading="lazy">
+          </div><span class="Badge">0 → 1 product</span><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div>
+        <div class="Work-caption"><h3>Envoy Desks</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Product design · Mobile &amp; admin</span></div></a>
+      </article>
+      <article class="Work-item Work-item--featured" data-reveal>
+        <a class="Work-card" href="/projects/envoy-rules/">
+          <div class="Work-media Work-media--envoy-rules Work-media--light"><div class="Work-surface"><img src="/assets/envoy/rules-demo-first-frame.png" alt="Opening frame of the original Envoy Rules demo" width="1380" height="890"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div>
+        <div class="Work-caption"><h3>Envoy Rules</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Product design · UX / UI</span></div></a>
+      </article>
+      <article class="Work-item Work-item--featured" data-reveal>
+        <a class="Work-card" href="/projects/chameleon-design-system/">
+          <div class="Work-media Work-media--system Work-media--light"><div class="Work-surface"><img loading="lazy" src="/assets/design-system-alt@2x.png" alt="Chameleon design system components" width="1000" height="800"><span class="Badge">Design systems</span><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div>
+        <div class="Work-caption"><h3>Chameleon Design System</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Product design</span></div></a>
+      </article>
+      <article class="Work-item" data-reveal><a class="Work-card" href="/projects/chameleon-templates/"><div class="Work-media Work-media--light"><div class="Work-surface"><img src="/assets/templates@2x.png" alt="Chameleon template interface" loading="lazy"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div><div class="Work-caption"><h3>Chameleon Templates</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Product design · UX / UI</span></div></a></article>
+      <article class="Work-item" data-reveal><a class="Work-card" href="/projects/chameleon-onboarding/"><div class="Work-media Work-media--light"><div class="Work-surface"><img src="/assets/onboarding@2x.png" alt="Chameleon onboarding experience" loading="lazy"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div><div class="Work-caption"><h3>Chameleon Onboarding</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Product design · UX / UI</span></div></a></article>
+      <article class="Work-item" data-reveal>
+        <a class="Work-card" href="/projects/gsd-site/">
+          <div class="Work-media Work-media--gsd"><div class="Work-surface"><img src="/assets/artwork/gsd-devices.png" alt="Global Star Design website and catalog" loading="lazy" width="2880" height="1492"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div>
+        <div class="Work-caption"><h3>Global Star Design</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>UX / UI</span></div></a>
+      </article>
+      <article class="Work-item" data-reveal><a class="Work-card" href="/projects/global-star-design/"><div class="Work-media"><div class="Work-surface"><img src="/projects/global-star-design/images/GSD-3@2x.jpg" width="940" height="720" alt="Global Star Design metal logo mounted on a natural wood slab" loading="lazy"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div><div class="Work-caption"><h3>Global Star Design Identity</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Brand identity · Photography</span></div></a></article>
+      <article class="Work-item" data-reveal><a class="Work-card" href="/projects/segment/"><div class="Work-media"><div class="Work-surface"><img src="/assets/segment@2x.png" alt="Segment customers page" loading="lazy"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div><div class="Work-caption"><h3>Segment Customers Page</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>UX / UI · Visual design</span></div></a></article>
+      <article class="Work-item" data-reveal><a class="Work-card" href="/projects/colourbeat-mobile/"><div class="Work-media Work-media--light"><div class="Work-surface"><img src="/projects/colourbeat-mobile/home@2x.jpg" alt="Colourbeat mobile interface" loading="lazy"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div><div class="Work-caption"><h3>Colourbeat Mobile</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>UX / UI</span></div></a></article>
+      <article class="Work-item" data-reveal><a class="Work-card" href="/projects/colourbeat-landing/"><div class="Work-media"><div class="Work-surface"><img src="/projects/colourbeat-landing/home@2x.png" alt="Colourbeat website" loading="lazy"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div><div class="Work-caption"><h3>Colourbeat Web</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>UX / UI</span></div></a></article>
+      <article class="Work-item" data-reveal><a class="Work-card" href="/projects/chess-set/"><div class="Work-media"><div class="Work-surface"><img src="/projects/chess-set/images/chess-2@2x.jpg" width="606" height="844" alt="Custom 3D-printed chess-piece key photographed on wood" loading="lazy"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div><div class="Work-caption"><h3>Chess Set</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Product design · 3D printing</span></div></a></article>
+      <article class="Work-item" data-reveal><a class="Work-card" href="/projects/south-east-asia/"><div class="Work-media"><div class="Work-surface"><img src="/assets/thailand@2x.jpg" alt="Travel photography from South East Asia" loading="lazy"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div><div class="Work-caption"><h3>South East Asia</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Photography</span></div></a></article>
+      <article class="Work-item" data-reveal><a class="Work-card" href="/projects/byer/"><div class="Work-media Work-media--light"><div class="Work-surface"><img src="/assets/byer@2x.jpg" alt="Byer California visual design and photography" loading="lazy"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div><div class="Work-caption"><h3>Byer California</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Visual design · Brand · Photography</span></div></a></article>
+      <article class="Work-item" data-reveal><a class="Work-card" href="/projects/across-america/"><div class="Work-media"><div class="Work-surface"><img src="/assets/across-america@2x.jpg" width="1940" height="1294" alt="Photography from a journey across America" loading="lazy"><div class="Work-blur" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div><div class="Work-caption"><h3>Soil and Pavement: Across America</h3><span class="Card-arrow"><svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Photography</span></div></a></article>
+    </div>
+  </section>
+</main>
+
+    <footer class="Site-footer Shell">
+  <div class="Footer-top"><h2>Have something in mind?</h2><a class="Footer-contact" href="mailto:jessbottali@gmail.com">Let’s talk <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  <div class="Footer-bottom"><span>Jessica Bottali · Design &amp; photography</span><nav class="Footer-social" aria-label="Social links"><a href="mailto:jessbottali@gmail.com">Email <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.linkedin.com/profile/view?id=222502808">LinkedIn <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://github.com/jessbottali">GitHub <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div>
+</footer>
+
+    <script src="/index.js" defer></script>
+
+
+
   </body>
 </html>

@@ -1,158 +1,112 @@
----
-layout: default
-title: "Chameleon onboarding"
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<article class="Project">
-  <header class="Project-header">
-    <h1 class="Project-name">{{ page.title }}</h1>
-    <h2 class="Project-tags">Product Design, UX/UI</h2>
+<title>Chameleon onboarding - Jessica Bottali</title>
+<link rel="stylesheet" href="/build.css">
+<link rel="stylesheet" href="/refresh.css">
+<link rel="canonical" href="/projects/chameleon-onboarding/">
+<script>
+  (() => {
+    // Record landings on every page, not only Home. Session-only state never
+    // prevents a deliberate homepage reload from replaying the full entrance.
+    let visited = false;
+    try {
+      visited = sessionStorage.getItem('portfolio-visited') === '1';
+      sessionStorage.setItem('portfolio-visited', '1');
+    } catch { /* Same-origin referrer still handles internal returns. */ }
+    const isHome = false;
+    if (!isHome || matchMedia('(prefers-reduced-motion: reduce)').matches || location.hash) return;
+    const navigation = performance.getEntriesByType('navigation')[0]?.type;
+    const internal = document.referrer && new URL(document.referrer).origin === location.origin;
+    document.documentElement.classList.add('is-home-intro');
+    if (navigation !== 'reload' && (visited || internal || navigation === 'back_forward')) {
+      document.documentElement.classList.add('is-home-return');
+    }
+    // Before-first-paint state has a fail-safe if the main script cannot finish.
+    window.__homeIntroFailsafe = setTimeout(() => {
+      document.documentElement.classList.remove('is-home-intro', 'is-home-return', 'is-intro-started');
+      document.querySelectorAll('[data-intro]').forEach(e => e.classList.remove('is-pending', 'is-revealing'));
+      const copy = document.querySelector('[data-typing-copy]');
+      if (copy) copy.textContent = document.querySelector('[data-intro-typing] .Visually-hidden').textContent;
+      dispatchEvent(new Event('home-intro-timeout'));
+    }, 8000);
+  })();
+</script>
+<link rel="icon" type="image/png" href="/assets/favicon-jb-16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/assets/favicon-jb-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/favicon-jb-96.png" sizes="96x96">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon-jb.png" sizes="180x180">
+
+  </head>
+  <body class="Project-page">
+    <a class="Skip-link" href="#main-content">Skip to content</a>
+    <header class="Navigation">
+      <div class="Navigation-logo">
+        <a href="/" class="Monogram" aria-label="Jessica Bottali — home"><span aria-hidden="true">J</span><span class="Monogram-b" aria-hidden="true">b</span></a>
+      </div>
+      <nav class="Navigation-list">
+        <a href="/#selected-work">Work</a>
+        <a class="Contact-action" href="mailto:jessbottali@gmail.com">Let’s talk <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </nav>
+    </header>
+    <main id="main-content">
+<article class="Case-study Case-study--legacy">
+  <header class="Project">
+    <a class="Case-back" href="/#selected-work">← Selected work</a>
+    <h1 class="Project-name">Chameleon onboarding</h1>
+    <p class="Project-tags">Product Design, UX/UI</p>
+    <div class="Project-content">
+<p style="margin-top: 0px;">Chameleon is a tool for in-app product marketing and guidance. We help our customers, typically other SaaS companies, share the value of their product with their users through product tours. Onboarding is one of the most common use cases that prospects seek out our tool. They want to teach their users about their product quickly, and get them engaged and invested in what they have to offer. </p>
+<p>In late 2018, we introduced more self-service pricing tiers to help more prospects get started without having to chat with us first. And like our customers, we noticed these users were struggling to get fully set up. This meant they couldn’t feel the value Chameleon could have for their app. Not fully installing led to an increase in churn. We realized we needed to re-evaluate how we onboard our self-serve users. </p>
+</div>
   </header>
-  <div class="Project-content">
-    <p style="margin-top: 0px;">Chameleon is a tool for in-app product marketing and guidance. We help our customers, typically other SaaS companies, share the value of their product with their users through product tours. Onboarding is one of the most common use cases that prospects seek out our tool. They want to teach their users about their product quickly, and get them engaged and invested in what they have to offer. </p>
-    <p>In late 2018, we introduced more self-service pricing tiers to help more prospects get started without having to chat with us first. And like our customers, we noticed these users were struggling to get fully set up. This meant they couldn’t feel the value Chameleon could have for their app. Not fully installing led to an increase in churn. We realized we needed to re-evaluate how we onboard our self-serve users. </p>
-  </div>
+
+<div class="Case-figure Shell" data-scroll-hero><div class="Case-gallery Case-gallery--single"><figure class="Case-gallery-item"><div class="Case-art Case-art--legacy Case-art--full-bleed"><img alt="Chameleon onboarding — project image" loading="lazy" src="./images/full-bleed-img@2x.png"/></div></figure></div></div>
+
+<section class="Case-section Shell"><div class="Case-section-heading"><span class="Case-step">01</span><h2>Investigating the problem</h2></div></section>
+
+<div class="Case-figure Shell"><div class="Case-layout-grid Case-layout-grid--story" style="--case-columns: minmax(0, 5fr) minmax(0, 7fr)"><div class="Case-layout-column"><section class="Case-section Case-section--stacked Case-section--continuation"><div class="Case-prose"><p class="m0 mb3">We knew what the crux of the problem was, completing our installation process, but we needed to learn why installation and finding value were a struggle. First, we dove into the data. We wanted to learn if there were other points users were more likely to churn, or if there were actions that made them more likely to convert after their trial concluded. What did they have to see or do to become a Chameleon promoter? </p><h3>Understanding our "aha moments"</h3><p>We also mapped out what we thought our “aha moments” were (where a user understands the value of a feature), then assessed what was and wasn’t working in our current onboarding flow with user feedback. </p><p>We spoke with customers, prospects, ex-prospects, etc. to help us answer several questions: </p><ul class="hyphen">
+<li>Why did they seek out a tool like Chameleon? (what was the problem they sought to solve)</li>
+<li>What did they want to achieve with this tool? (what was their goal)</li>
+<li>What features were important to them in using a tool like this? (did they have a checklist for what they needed or to compare products)</li>
+<li>How did they find setting up Chameleon?</li>
+<li>What felt simple or frustrating?</li>
+</ul></div></section></div><div class="Case-layout-column"><figure class="Case-gallery-item"><div class="Case-art Case-art--legacy Case-art--full-bleed"><img alt="Chameleon onboarding — project image" loading="lazy" src="./images/story-brief-closer@2x.png"/></div><figcaption>Beginning the brief</figcaption></figure>
+
+<section class="Case-section Case-section--stacked Case-section--continuation"><div class="Case-prose"><h3>Onboarding goals</h3><ul class="m0 mb3">
+<li>Define Chameleon’s “aha moments” (or when a user understands the value of a feature or the product as a whole)</li>
+<li>Drive motivation, or help our users find “aha moments” in our onboarding flow as soon as possible </li>
+<li>Increase number of users fully installed while maintaining lifetime value</li>
+</ul></div></section></div></div></div>
+
+<section class="Case-section Shell Case-section--heading-only"><div class="Case-section-heading"><span class="Case-step">02</span><h2>What we learned </h2></div></section>
+
+<div class="Case-figure Shell"><div class="Case-layout-grid Case-layout-grid--story" style="--case-columns: minmax(0, 6fr) minmax(0, 6fr)"><div class="Case-layout-column"><figure class="Case-gallery-item"><div class="Case-art Case-art--legacy Case-art--full-bleed"><img alt="Chameleon onboarding — project image" loading="lazy" src="./images/setup-guide@2x.png"/></div><figcaption>Setup guide checklist</figcaption></figure>
+
+<figure class="Case-gallery-item"><div class="Case-art Case-art--legacy Case-art--full-bleed"><img alt="Chameleon onboarding — project image" loading="lazy" src="./images/hovertips-explain-each-step@2x.png"/></div><figcaption>Making "aha moments" more obvious</figcaption></figure></div><div class="Case-layout-column"><section class="Case-section Case-section--stacked Case-section--continuation"><div class="Case-prose"><h3>Checklists were working</h3><p class="m0 mb3">Our current onboarding flow begins with a checklist right after signing up. In the checklist, a user is immediately prompted to download our app via Chrome extension. Our customers continued to tell us they liked having a list to return to, so they knew what they still needed to accomplish. It helped them feel like they always had a resource available to them as they were learning to navigate something new. However, once downloading the app, we had additional instructions in the editor to guide you in using it. This is where users got a bit lost. It was difficult to know how much to explore in the app before returning to the original checklist. What took priority? There was also a disconnect in how to get from the setup checklist to the app and back. </p><h3>Points of friction</h3><p>We also confirmed a couple other points of friction. </p><p>First, our installation occurs in two parts: with a Chrome extension and then a snippet of code. We do this so anyone, technical or not, can get started with the basics. The extension allows a user to see where the Chameleon editor sits on their own app, to get acquainted with building tours, and can show what steps they’ve built will look like in their own UX. Installing the snippet, part 2, can often involve other teammates. Needing additional people tends to cause a delay in the installation process. </p><p>Second, if a user never fully installs our code on their app, they aren’t able to experience our largest “aha moments.” For example, their users can’t see any tours until this occurs, meaning our prospects are blind to any metric or user behavior changes that could prove Chameleon’s value. </p><p class="m0 mb3">Since both tended to be necessary for our users to find success, we couldn’t avoid these tasks. We just had to find ways to motivate users to want to complete them. </p></div></section></div></div></div>
+
+<div class="Case-figure Shell"><div class="Case-layout-grid Case-layout-grid--story" style="--case-columns: minmax(0, 5fr) minmax(0, 7fr)"><div class="Case-layout-column"><section class="Case-section Case-section--stacked"><div class="Case-section-heading"><span class="Case-step">03</span><h2>What we changed</h2></div><div class="Case-prose"><h3>Motivate our users to continue</h3><p>We needed to help users gain better insight on why they should keep going. To do this we looked to better connect our setup guide (installation) with learning the gist of the app. This was our opportunity to share the value of Chameleon quicker. </p><p>A user downloads the Chrome extension, then instead of individual modals in the app guiding you to take one action at a time, with no clear navigation or structure, I created a “Getting Started” home screen. In it was a new checklist with the three most important things you should and could do prior to installing the snippet and why they were valuable. Clear visibility, all in one place. </p></div></section></div><div class="Case-layout-column"><figure class="Case-gallery-item"><div class="Case-art Case-art--legacy Case-art--full-bleed Case-art--embed"><iframe allowtransparency="true" frameborder="0" height="563" src="https://marvelapp.com/32241jd?emb=1&amp;iosapp=false&amp;frameless=false" width="450"></iframe></div><figcaption>Clickable prototype</figcaption></figure></div></div></div>
+
+<div class="Case-figure Shell"><div class="Case-layout-grid Case-layout-grid--story" style="--case-columns: minmax(0, 6fr) minmax(0, 6fr)"><div class="Case-layout-column"><figure class="Case-gallery-item"><div class="Case-art Case-art--legacy Case-art--full-bleed"><img alt="Chameleon onboarding — project image" loading="lazy" src="./images/hovering-over-tooltips@2x.png"/></div><figcaption>Hovering over the Tooltips product</figcaption></figure></div><div class="Case-layout-column"><section class="Case-section Case-section--stacked"><div class="Case-section-heading"><span class="Case-step">04</span><h2>Get users to feel invested in Chameleon</h2></div><div class="Case-prose"><p>For task 1, I asked users to style their tips and tour steps to match their brand. This task had minimal UI to learn. It also set the stage for each subsequent task because once your account styling looked native, every tip or step you built next would also.</p><p>And while we were accessible on our users’ apps, our presence there didn’t necessarily encourage quality Chameleon usage. We found (and learned we actually preferred) when users built product tours with intention, mapped their use cases, or at least set goals, that this planning made for more successful tours. </p><p>On the flip side of friction is investment. With every task you successfully get your user to accomplish, the more invested they become. Ideally, they’d reach several “aha moments” so that when they tasked with something more difficult, like asking their developer to help them install our snippet, they were motivated to do so. The snippet meant users could set their tours live. A live tour tended to commit them because they wanted to wait for results and watch their users’ behavior change. </p></div></section></div></div></div>
+
+<section class="Case-section Shell Case-section--heading-only"><div class="Case-section-heading"><span class="Case-step">05</span><h2>Looking ahead</h2></div><div class="Case-prose"><p style="margin-top: 0px;">I am so eager to learn how useful (or not) our onboarding updates are, so we can understand where to iterate next. Because this is a project in progress, I don’t yet have data to validate our research and assumptions. However, if this revised flow does improve our intended metrics, I have already begun to think about how we can create new tasks to improve engagement post install. We don’t just want more users, we want to enable more users to be successful. </p></div></section>
+
+<div class="Case-figure Shell"><div class="Case-gallery Case-gallery--single"><figure class="Case-gallery-item"><div class="Case-art Case-art--legacy Case-art--full-bleed"><img alt="Chameleon onboarding — project image" loading="lazy" src="./images/onboarding-desk@2x.png"/></div></figure></div></div>
+
+  <nav class="Case-next Shell" aria-label="More work"><a href="/projects/chameleon-templates/"><span>Next project</span>Chameleon templates <span aria-hidden="true">→</span></a><a href="/#selected-work">All work</a></nav>
 </article>
-<img src="./images/full-bleed-img@2x.png" class="ProjectImage full w100" />
+</main>
+    <footer class="Site-footer Shell">
+  <div class="Footer-top"><h2>Have something in mind?</h2><a class="Footer-contact" href="mailto:jessbottali@gmail.com">Let’s talk <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  <div class="Footer-bottom"><span>Jessica Bottali · Design &amp; photography</span><nav class="Footer-social" aria-label="Social links"><a href="mailto:jessbottali@gmail.com">Email <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.linkedin.com/profile/view?id=222502808">LinkedIn <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://github.com/jessbottali">GitHub <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div>
+</footer>
 
-<div class="Container">
-  <h2 class="ProjectWork-title">Investigating the problem</h2>
-  <div class="Grid gutters">
-
-        <div class="Grid-cell u-5of12">
-          <div class="Catalog-content">
-
-            <p class="m0 mb3">We knew what the crux of the problem was, completing our installation process, but we needed to learn why installation and finding value were a struggle. First, we dove into the data. We wanted to learn if there were other points users were more likely to churn, or if there were actions that made them more likely to convert after their trial concluded. What did they have to see or do to become a Chameleon promoter? </p>
-
-            <h3 class="ProjectImage-title mb2">Understanding our "aha moments"</h3>
-            <p>We also mapped out what we thought our “aha moments” were (where a user understands the value of a feature), then assessed what was and wasn’t working in our current onboarding flow with user feedback. </p>
-
-            <p>We spoke with customers, prospects, ex-prospects, etc. to help us answer several questions: </p>
-
-            <ul class="hyphen">
-              <li>Why did they seek out a tool like Chameleon? (what was the problem they sought to solve)</li>
-              <li>What did they want to achieve with this tool? (what was their goal)</li>
-              <li>What features were important to them in using a tool like this? (did they have a checklist for what they needed or to compare products)</li>
-              <li>How did they find setting up Chameleon?</li>
-              <li>What felt simple or frustrating?</li>
-            </ul>
-
-          </div>
-        </div>
-        <div class="Grid-cell u-7of12">
-          <div class="Catalog-sketch-images">
-            <img src="./images/story-brief-closer@2x.png" class="ProjectImage" />
-            <p class="ImageCaption">Beginning the brief</p>
-          </div>
-          <div class="Grid-cell u-12of12" style="
-            margin-top: 40px;
-            margin-left: 40px;
-            ">
-            <h3 class="ProjectImage-title mb2">Onboarding goals</h3>
-            <ul class="m0 mb3">
-              <li>Define Chameleon’s “aha moments” (or when a user understands the value of a feature or the product as a whole)</li>
-              <li>Drive motivation, or help our users find “aha moments” in our onboarding flow as soon as possible </li>
-              <li>Increase number of users fully installed while maintaining lifetime value</li>
-            </ul>
-          </div>
-        </div>
-  </div>
-</div>
-
-<div class="Container mb5">
-  <hr />
-    <h2 class="ProjectWork-title m0 mb4">What we learned </h2>
-    <div class="Grid gutters u-m-top-20">
-      <div class="Grid-cell u-6of12">
-        <div class="Home-Page-Image">
-          <img src="./images/setup-guide@2x.png" class="ProjectImage ml0" />
-          <p class="ImageCaption">Setup guide checklist</p>
-          <br>
-          <br>
-          <img src="./images/hovertips-explain-each-step@2x.png" class="ProjectImage ml0" />
-          <p class="ImageCaption">Making "aha moments" more obvious</p>
-        </div>
-      </div>
-        <div class="Grid-cell">
-          <div class="challenges-content">
-            <h3 class="ProjectImage-title m0 mb2">Checklists were working</h3>
-
-            <p class="m0 mb3">Our current onboarding flow begins with a checklist right after signing up. In the checklist, a user is immediately prompted to download our app via Chrome extension. Our customers continued to tell us they liked having a list to return to, so they knew what they still needed to accomplish. It helped them feel like they always had a resource available to them as they were learning to navigate something new. However, once downloading the app, we had additional instructions in the editor to guide you in using it. This is where users got a bit lost. It was difficult to know how much to explore in the app before returning to the original checklist. What took priority? There was also a disconnect in how to get from the setup checklist to the app and back. </p>
-
-            <h3 class="ProjectImage-title m0 mb2">Points of friction</h3>
-
-            <p>We also confirmed a couple other points of friction. </p>
-
-            <p>First, our installation occurs in two parts&#58; with a Chrome extension and then a snippet of code. We do this so anyone, technical or not, can get started with the basics. The extension allows a user to see where the Chameleon editor sits on their own app, to get acquainted with building tours, and can show what steps they’ve built will look like in their own UX. Installing the snippet, part 2, can often involve other teammates. Needing additional people tends to cause a delay in the installation process. </p>
-
-            <p>Second, if a user never fully installs our code on their app, they aren’t able to experience our largest “aha moments.” For example, their users can’t see any tours until this occurs, meaning our prospects are blind to any metric or user behavior changes that could prove Chameleon’s value. </p>
-
-            <p class="m0 mb3">Since both tended to be necessary for our users to find success, we couldn’t avoid these tasks. We just had to find ways to motivate users to want to complete them. </p>
-          </div>
-        </div>
-      </div>
-     </div>
-    </div>
-</div>
+    <script src="/index.js" defer></script>
 
 
-<div class="Container mb5"style="margin-bottom: 50px;">
-  <hr />
-  <div class="Grid gutters">
-    <div class="Grid-cell u-5of12"  style="line-height: 27px;">
-      <h2 class="ProjectWork-title m0 mb4">What we changed</h2>
-        <h3 class="ProjectImage-title mb2">Motivate our users to continue</h3>
-          <p>We needed to help users gain better insight on why they should keep going. To do this we looked to better connect our setup guide (installation) with learning the gist of the app. This was our opportunity to share the value of Chameleon quicker. </p>
-          <p>A user downloads the Chrome extension, then instead of individual modals in the app guiding you to take one action at a time, with no clear navigation or structure, I created a “Getting Started” home screen. In it was a new checklist with the three most important things you should and could do prior to installing the snippet and why they were valuable. Clear visibility, all in one place. </p>
-    </div>
 
-    <div class="Grid-cell" style="margin-top:70px; margin-left:40px;">
-      <iframe src="https://marvelapp.com/32241jd?emb=1&iosapp=false&frameless=false" width="450" height="563" allowTransparency="true" frameborder="0" style="shadow:.5;box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.17); margin-left: 20px;"></iframe>
-        <p class="ImageCaption">Clickable prototype</p>
-    </div>
-
-    </div>
-</div>
-
-<div class="Container">
-  <div class="Grid gutters">
-    <div class="Grid-cell u-6of12" style="padding-left: 0px;">
-        <div class="Catalog-sketch-images">
-          <img src="./images/hovering-over-tooltips@2x.png" class="ProjectImage ml0" style="width: 490px;" />
-          <p class="ImageCaption">Hovering over the Tooltips product</p>
-        </div>
-    </div>
-
-    <div class="Grid-cell u-6of12" style="margin-top: 22px;">
-      <div class="understanding-catalog-content">
-        <div class="Grid-cell u-12of12">
-        <h2 class="ProjectImage-title m0 mb2">Get users to feel invested in Chameleon</h2>
-
-        <p>For task 1, I asked users to style their tips and tour steps to match their brand. This task had minimal UI to learn. It also set the stage for each subsequent task because once your account styling looked native, every tip or step you built next would also.</p>
-
-        <p>And while we were accessible on our users’ apps, our presence there didn’t necessarily encourage quality Chameleon usage. We found (and learned we actually preferred) when users built product tours with intention, mapped their use cases, or at least set goals, that this planning made for more successful tours. </p>
-
-        <p>On the flip side of friction is investment. With every task you successfully get your user to accomplish, the more invested they become. Ideally, they’d reach several “aha moments” so that when they tasked with something more difficult, like asking their developer to help them install our snippet, they were motivated to do so. The snippet meant users could set their tours live. A live tour tended to commit them because they wanted to wait for results and watch their users’ behavior change. </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="Container">
-  <hr />
-  <h2 class="ProjectWork-title">Looking ahead</h2>
-  <div class="Grid gutters"
-       style="height:150px;">
-    <div class="Project-content"style="
-    margin-bottom: 0px;
-    padding-left: 15px;
-    height: 130px;
-   ">
-      <p style="margin-top: 0px;">I am so eager to learn how useful (or not) our onboarding updates are, so we can understand where to iterate next. Because this is a project in progress, I don’t yet have data to validate our research and assumptions. However, if this revised flow does improve our intended metrics, I have already begun to think about how we can create new tasks to improve engagement post install. We don’t just want more users, we want to enable more users to be successful. </p>
-      </div>
-  </div>
-</div>
-<div class="Container">
-  <img src="./images/onboarding-desk@2x.png" class="ProjectImage" />
-</div>
+  </body>
+</html>

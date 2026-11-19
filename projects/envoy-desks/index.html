@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Envoy Desks - Jessica Bottali</title>
+<link rel="stylesheet" href="/build.css">
+<link rel="stylesheet" href="/refresh.css">
+<link rel="canonical" href="/projects/envoy-desks/">
+<script>
+  (() => {
+    // Record landings on every page, not only Home. Session-only state never
+    // prevents a deliberate homepage reload from replaying the full entrance.
+    let visited = false;
+    try {
+      visited = sessionStorage.getItem('portfolio-visited') === '1';
+      sessionStorage.setItem('portfolio-visited', '1');
+    } catch { /* Same-origin referrer still handles internal returns. */ }
+    const isHome = false;
+    if (!isHome || matchMedia('(prefers-reduced-motion: reduce)').matches || location.hash) return;
+    const navigation = performance.getEntriesByType('navigation')[0]?.type;
+    const internal = document.referrer && new URL(document.referrer).origin === location.origin;
+    document.documentElement.classList.add('is-home-intro');
+    if (navigation !== 'reload' && (visited || internal || navigation === 'back_forward')) {
+      document.documentElement.classList.add('is-home-return');
+    }
+    // Before-first-paint state has a fail-safe if the main script cannot finish.
+    window.__homeIntroFailsafe = setTimeout(() => {
+      document.documentElement.classList.remove('is-home-intro', 'is-home-return', 'is-intro-started');
+      document.querySelectorAll('[data-intro]').forEach(e => e.classList.remove('is-pending', 'is-revealing'));
+      const copy = document.querySelector('[data-typing-copy]');
+      if (copy) copy.textContent = document.querySelector('[data-intro-typing] .Visually-hidden').textContent;
+      dispatchEvent(new Event('home-intro-timeout'));
+    }, 8000);
+  })();
+</script>
+<link rel="icon" type="image/png" href="/assets/favicon-jb-16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/assets/favicon-jb-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/favicon-jb-96.png" sizes="96x96">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon-jb.png" sizes="180x180">
+
+  </head>
+  <body class="Project-page">
+    <a class="Skip-link" href="#main-content">Skip to content</a>
+    <header class="Navigation">
+      <div class="Navigation-logo">
+        <a href="/" class="Monogram" aria-label="Jessica Bottali — home"><span aria-hidden="true">J</span><span class="Monogram-b" aria-hidden="true">b</span></a>
+      </div>
+      <nav class="Navigation-list">
+        <a href="/#selected-work">Work</a>
+        <a class="Contact-action" href="mailto:jessbottali@gmail.com">Let’s talk <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </nav>
+    </header>
+    <main id="main-content"><article class="Case-study">
+  <header class="Project">
+    <a class="Case-back" href="/#selected-work">← Selected work</a>
+    <h1 class="Project-name">Envoy Desks</h1>
+    <p class="Project-tags">Product design · 0 → 1 · Mobile &amp; admin experiences</p>
+    <div class="Project-content">Helping employees find a place to work—and giving admins visibility into where people sat. I led the design of a new desk-booking product, from a safety-first MVP to interactive office maps.</div>
+  </header>
+
+  <figure class="Case-figure Shell" data-scroll-hero>
+    <div class="Case-art Case-art--desks">
+      <img class="Case-desk-admin" src="/assets/envoy/desks-map.png" alt="Envoy Desks admin interface for placing desks on a floor map" width="2160" height="2052" fetchpriority="high">
+      <div class="Case-phone-demo" data-phone-demo>
+        <div class="Case-demo-screen">
+          <img class="Case-desk-phone" src="/assets/envoy/desks-assigned.png" alt="Envoy Desks mobile flow for finding an assigned desk and choosing another seat" width="884" height="1740">
+          <video class="Case-desk-phone Case-demo-video" data-demo-video data-src="/assets/envoy/desks-demo.mp4" width="884" height="1740" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <button class="Case-demo-toggle" type="button" hidden>Pause demo</button>
+        </div>
+      </div>
+    </div>
+    <figcaption>Connecting admin-managed floor maps with an employee’s assigned seat. The original mobile demo shows how employees find and change desks.</figcaption>
+  </figure>
+
+  <section class="Case-section Shell" aria-labelledby="desks-problem">
+    <div class="Case-section-heading"><span class="Case-step">01 / The problem</span><h2 id="desks-problem">Getting in was only half the problem.</h2></div>
+    <div class="Case-prose"><p>Some employees still needed office equipment or a quiet place to work during COVID. Envoy Protect managed permission to enter, but admins also needed to know where people would sit so they could support distancing, cleaning, and contact tracing.</p><p>We prioritized safety and clear expectations over the flexibility of a typical hot-desking product, while keeping the employee’s daily check-in simple.</p></div>
+  </section>
+
+  <section class="Case-section Shell" aria-labelledby="desks-approach">
+    <div class="Case-section-heading"><span class="Case-step">02 / The approach</span><h2 id="desks-approach">Start with a seat, not another decision.</h2></div>
+    <div class="Case-prose"><p>I worked with early customer partners to test concepts and meet their office-reopening timelines. We reused existing components and connected desk assignment to Protect approval rather than creating a separate booking flow.</p><p>Employees were automatically assigned a desk, generally the same one each time. Admin-uploaded maps and desk details helped them find it. Full-day reservations kept cleaning expectations simple.</p></div>
+  </section>
+
+  <figure class="Case-figure Shell">
+    <div class="Case-art Case-art--flow"><img src="/assets/envoy/desks-mvp.png" alt="Early mobile journey: health screening, automatic desk assignment, desk details, map, and access from the home screen" width="1727" height="551" loading="lazy"></div>
+    <figcaption>The MVP extended the existing screening journey instead of asking employees to book separately.</figcaption>
+  </figure>
+
+  <section class="Case-section Shell" aria-labelledby="desks-learnings">
+    <div class="Case-section-heading"><span class="Case-step">03 / Tradeoffs &amp; learnings</span><h2 id="desks-learnings">A map isn’t useful unless you can find your desk.</h2></div>
+    <div class="Case-prose"><p>Customer maps varied from detailed CAD files to sparse PDFs. Static images didn’t consistently show employees where to go. People also needed to move for equipment, noise, or proximity to teammates.</p><p>We introduced an interactive desk layer over each company’s map and let employees change seats, while retaining automatic assignment as the default. A vacated desk stayed unavailable until the next day’s cleaning—a deliberate tradeoff of availability for safety.</p></div>
+  </section>
+
+  <figure class="Case-figure Shell">
+    <div class="Case-art Case-art--phones"><img src="/assets/envoy/desks-assigned.png" alt="Assigned desk C5 located on the office map" width="884" height="1740" loading="lazy"><img src="/assets/envoy/desks-change.png" alt="Employee selecting another available desk and confirming the change" width="884" height="1740" loading="lazy"></div>
+    <figcaption>Keep the default effortless, with the option to choose a better-fitting seat.</figcaption>
+  </figure>
+
+  <section class="Case-outcome Shell" aria-labelledby="desks-outcome">
+    <span class="Case-step">04 / The outcome</span><h2 id="desks-outcome">Early use validated the need for wayfinding.</h2>
+    <div class="Case-metrics">
+      <div><strong>16k+</strong><p>desk reservations, averaging roughly 400 per day.</p></div>
+      <div><strong>155</strong><p>companies with reservations—about 30% of those trialing Desks.</p></div>
+      <div><strong>26k+</strong><p>desks placed on floor maps, representing 60% of uploaded desks.</p></div>
+    </div>
+  </section>
+  <nav class="Case-next Shell" aria-label="More work"><a href="/projects/envoy-rules/"><span>Next project</span>Envoy Rules <span aria-hidden="true">→</span></a><a href="/#selected-work">All work</a></nav>
+</article>
+</main>
+    <footer class="Site-footer Shell">
+  <div class="Footer-top"><h2>Have something in mind?</h2><a class="Footer-contact" href="mailto:jessbottali@gmail.com">Let’s talk <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  <div class="Footer-bottom"><span>Jessica Bottali · Design &amp; photography</span><nav class="Footer-social" aria-label="Social links"><a href="mailto:jessbottali@gmail.com">Email <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.linkedin.com/profile/view?id=222502808">LinkedIn <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://github.com/jessbottali">GitHub <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div>
+</footer>
+
+    <script src="/index.js" defer></script>
+
+
+
+  </body>
+</html>

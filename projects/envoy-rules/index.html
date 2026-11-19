@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Envoy Rules - Jessica Bottali</title>
+<link rel="stylesheet" href="/build.css">
+<link rel="stylesheet" href="/refresh.css">
+<link rel="canonical" href="/projects/envoy-rules/">
+<script>
+  (() => {
+    // Record landings on every page, not only Home. Session-only state never
+    // prevents a deliberate homepage reload from replaying the full entrance.
+    let visited = false;
+    try {
+      visited = sessionStorage.getItem('portfolio-visited') === '1';
+      sessionStorage.setItem('portfolio-visited', '1');
+    } catch { /* Same-origin referrer still handles internal returns. */ }
+    const isHome = false;
+    if (!isHome || matchMedia('(prefers-reduced-motion: reduce)').matches || location.hash) return;
+    const navigation = performance.getEntriesByType('navigation')[0]?.type;
+    const internal = document.referrer && new URL(document.referrer).origin === location.origin;
+    document.documentElement.classList.add('is-home-intro');
+    if (navigation !== 'reload' && (visited || internal || navigation === 'back_forward')) {
+      document.documentElement.classList.add('is-home-return');
+    }
+    // Before-first-paint state has a fail-safe if the main script cannot finish.
+    window.__homeIntroFailsafe = setTimeout(() => {
+      document.documentElement.classList.remove('is-home-intro', 'is-home-return', 'is-intro-started');
+      document.querySelectorAll('[data-intro]').forEach(e => e.classList.remove('is-pending', 'is-revealing'));
+      const copy = document.querySelector('[data-typing-copy]');
+      if (copy) copy.textContent = document.querySelector('[data-intro-typing] .Visually-hidden').textContent;
+      dispatchEvent(new Event('home-intro-timeout'));
+    }, 8000);
+  })();
+</script>
+<link rel="icon" type="image/png" href="/assets/favicon-jb-16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/assets/favicon-jb-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/favicon-jb-96.png" sizes="96x96">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon-jb.png" sizes="180x180">
+
+  </head>
+  <body class="Project-page">
+    <a class="Skip-link" href="#main-content">Skip to content</a>
+    <header class="Navigation">
+      <div class="Navigation-logo">
+        <a href="/" class="Monogram" aria-label="Jessica Bottali — home"><span aria-hidden="true">J</span><span class="Monogram-b" aria-hidden="true">b</span></a>
+      </div>
+      <nav class="Navigation-list">
+        <a href="/#selected-work">Work</a>
+        <a class="Contact-action" href="mailto:jessbottali@gmail.com">Let’s talk <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </nav>
+    </header>
+    <main id="main-content"><article class="Case-study">
+  <header class="Project">
+    <a class="Case-back" href="/#selected-work">← Selected work</a>
+    <h1 class="Project-name">Envoy Rules</h1>
+    <p class="Project-tags">Product design · Research · Admin experience</p>
+    <div class="Project-content">Helping workplace admins turn sign-in answers into actions—giving them more control over who could enter, without building a feature useful only during COVID.</div>
+  </header>
+
+  <figure class="Case-figure Shell" data-scroll-hero>
+    <div class="Case-art Case-art--full-bleed">
+      <div class="Case-video-demo" data-case-demo>
+        <div class="Case-demo-screen">
+          <img data-demo-poster src="/assets/envoy/rules-demo-first-frame.png" alt="Opening screen of the original Rules demo before adding sign-in logic" width="1380" height="890" fetchpriority="high">
+          <video data-src="/assets/envoy/rules-demo.mp4" width="1380" height="890" muted playsinline preload="none" hidden aria-label="Original Envoy Rules demo"></video>
+          <button class="Case-demo-toggle" type="button" hidden>Play demo</button>
+        </div>
+      </div>
+    </div>
+    <figcaption>Original Rules demo, showing sign-in conditions and admin actions.</figcaption>
+  </figure>
+
+  <section class="Case-section Shell" aria-labelledby="rules-problem">
+    <div class="Case-section-heading"><span class="Case-step">01 / The problem</span><h2 id="rules-problem">Answers needed to lead to action.</h2></div>
+    <div class="Case-prose"><p>Envoy let companies customize questions for visitors and employees, but admins needed to act on the answers. A health-screening response might mean denying entry or notifying someone before a person reached the office.</p><p>Customer calls and feedback from customer-facing teams made control a clear priority. The challenge was addressing that immediate need while creating a logic framework that could support other workplace policies later.</p></div>
+  </section>
+
+  <section class="Case-section Shell" aria-labelledby="rules-approach">
+    <div class="Case-section-heading"><span class="Case-step">02 / The approach</span><h2 id="rules-approach">One flow across two products.</h2></div>
+    <div class="Case-prose"><p>I partnered with the PM to define the first release, including rules with multiple conditions. I explored inline controls, a dedicated tab, and a side panel across the existing employee and visitor flows.</p><p>The side panel let admins see questions and rules together and offered a reusable entry point across products. I tested and refined that direction with customers.</p></div>
+  </section>
+
+  <figure class="Case-figure Shell">
+    <div class="Case-art Case-art--exploration"><img src="/assets/artwork/rules-exploration.png" alt="Early Rules side-panel concept shown alongside the visitor sign-in fields" width="1600" height="1200" loading="lazy"></div>
+    <figcaption>Exploring a side panel to keep sign-in fields and their rules in the same context.</figcaption>
+  </figure>
+
+  <section class="Case-section Shell" aria-labelledby="rules-tradeoffs">
+    <div class="Case-section-heading"><span class="Case-step">03 / Tradeoffs &amp; learnings</span><h2 id="rules-tradeoffs">Ship quickly. Learn where it breaks.</h2></div>
+    <div class="Case-prose"><p>A side panel required a new component. To ship and learn sooner, I worked with engineering to retain the flow’s structure inside an existing modal. The first release supported entry denial and notifications, plus editing and deleting rules.</p><p>Legal requirements surfaced two important needs: longer screening questions made rules harder to scan, and privacy called for “OR” logic that could deny entry without revealing which sensitive answer had triggered it. These became priorities for iteration.</p></div>
+  </section>
+
+  <figure class="Case-figure Shell">
+    <div class="Case-art Case-art--rules Case-art--full-bleed"><img src="/assets/envoy/rules-builder-design-3x.png" alt="Original Rules modal design with trigger conditions, entry denial, and admin notifications" width="3304" height="2689" loading="lazy"></div>
+    <figcaption>Original Rules modal design, showing a sign-in trigger and entry-denial and notification actions.</figcaption>
+  </figure>
+
+  <section class="Case-outcome Shell" aria-labelledby="rules-outcome">
+    <span class="Case-step">04 / The outcome</span><h2 id="rules-outcome">Adopted and put to use.</h2>
+    <div class="Case-metrics">
+      <div><strong>67%</strong><p>of active Protect companies had created at least one rule.</p></div>
+      <div><strong>55%</strong><p>of Protect rules were created to deny entry.</p></div>
+      <div><strong>38%</strong><p>of entry-denial rules had triggered at least five times.</p></div>
+    </div>
+  </section>
+  <nav class="Case-next Shell" aria-label="More work"><a href="/projects/envoy-desks/"><span>Next project</span>Envoy Desks <span aria-hidden="true">→</span></a><a href="/#selected-work">All work</a></nav>
+</article>
+</main>
+    <footer class="Site-footer Shell">
+  <div class="Footer-top"><h2>Have something in mind?</h2><a class="Footer-contact" href="mailto:jessbottali@gmail.com">Let’s talk <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  <div class="Footer-bottom"><span>Jessica Bottali · Design &amp; photography</span><nav class="Footer-social" aria-label="Social links"><a href="mailto:jessbottali@gmail.com">Email <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.linkedin.com/profile/view?id=222502808">LinkedIn <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://github.com/jessbottali">GitHub <svg class="Arrow-up-right" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div>
+</footer>
+
+    <script src="/index.js" defer></script>
+<script src="/case-demo.js" defer></script>
+
+
+  </body>
+</html>
