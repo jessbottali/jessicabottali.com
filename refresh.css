@@ -32,6 +32,8 @@ body.has-font-compare { padding-bottom: 85px; }
   --muted: #686868;
   --rule: #dedede;
   --font-primary: Arial, Helvetica, sans-serif;
+  --case-content-max: 1200px;
+  --case-media-max: 1320px;
   --reveal-duration: 500ms;
   --intro-heading-duration: 600ms;
   --intro-type-gap: 80ms;
@@ -124,8 +126,12 @@ html.is-home-intro .Site-footer { opacity: 0; visibility: hidden; }
 /* The latter two are portrait compositions: fit their width, letting the
    existing card clip any excess height instead of adding side gutters. */
 .Home--card-preview .Work-card:is([href="/projects/chameleon-design-system/"], [href="/projects/chameleon-onboarding/"]) .Work-media img { width: 100%; height: auto; top: 0; bottom: auto; object-position: center top; }
-/* Rules fills the card height, cropping the sides rather than letterboxing. */
-.Home--card-preview .Work-media--envoy-rules img { object-fit: cover; }
+/* Rules: enlarged resting crop, vertically centered and inset 12px from the left. */
+.Home--card-preview .Work-card[href="/projects/envoy-rules/"] .Work-media img {
+  inset: 50% auto auto 12px; width: calc(150% - 60px); height: auto;
+  translate: 0 -50%; object-fit: contain; border-radius: 8px;
+  filter: drop-shadow(0 4px 8px rgb(26 26 26 / 12%));
+}
 /* Per-project resting crops; preserve natural proportions and hover scaling. */
 .Home--card-preview .Work-card:is([href="/projects/chameleon-templates/"], [href="/projects/segment/"]) .Work-media img {
   width: 100%; height: auto; top: 0; bottom: auto; object-fit: contain; object-position: center top;
@@ -369,6 +375,11 @@ html.is-home-intro .Site-footer { opacity: 0; visibility: hidden; }
 .Project-page .ProjectImage-title { font-size: 20px; line-height: 1.4; letter-spacing: -.025em; }
 .Project-page .ProjectImage { border-radius: 20px; }
 .Project-page .ProjectImage.full { margin-block: 64px; }
+.Project-content--columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 64px); max-width: none; }
+.Project-content--columns > p { margin: 0; }
+@media (max-width: 760px) {
+  .Project-content--columns { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}
 .Project-content a { color: var(--ink); text-decoration: underline; }
 .ProjectWork-title, .ProjectImage-title, .ProjectThumb-title, .ProjectThumb-intro, .ImageCaption { font-family: var(--font-primary); color: var(--ink); }
 .ProjectThumb, .PageIntro { color: var(--ink); }
@@ -381,7 +392,7 @@ html.is-home-intro .Site-footer { opacity: 0; visibility: hidden; }
    of the existing projects, with shorter text and readable line lengths. */
 .Case-study .Project { margin-top: 45px; margin-bottom: 44px; }
 .Case-back { display: inline-block; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 30px; }
-.Case-figure { max-width: 1320px; margin-block: 0 56px; }
+.Case-figure { max-width: var(--case-media-max); margin-block: 0 56px; }
 /* Reuse the homepage's reversible full-bleed → inset hero. Only the opening
    artwork changes; its Shell anchor, captions, and subsequent galleries stay put. */
 .Case-study { overflow-x: clip; }
@@ -404,6 +415,9 @@ html.is-home-intro .Site-footer { opacity: 0; visibility: hidden; }
 .Case-phone-demo { width: 100%; max-width: 250px; justify-self: center; }
 .Case-demo-screen { position: relative; aspect-ratio: 884 / 1740; }
 .Case-demo-screen .Case-desk-phone { display: block; width: 100%; height: 100%; }
+.Case-art--rules-demo { background: var(--art-surface); }
+.Case-art--rules-demo .Case-video-demo { max-width: 1000px; margin-inline: auto; }
+.Case-art--rules-demo .Case-demo-screen { overflow: hidden; border-radius: 8px; filter: drop-shadow(0 4px 8px rgb(26 26 26 / 12%)); }
 .Case-video-demo .Case-demo-screen { aspect-ratio: auto; }
 .Case-video-demo video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .Case-video-demo video[hidden] { display: none; }
@@ -458,20 +472,20 @@ html.is-home-intro .Site-footer { opacity: 0; visibility: hidden; }
   .Case-art--wa-buyers .Wa-phone { width: min(100%, 300px); }
 }
 .Case-figure figcaption { margin-top: 14px; font-size: 13px; line-height: 1.6; color: var(--muted); max-width: 780px; }
-.Case-section { max-width: 1200px; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 5vw, 80px); padding-block: 40px 52px; }
+.Case-section { max-width: var(--case-content-max); display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 5vw, 80px); padding-block: 40px 52px; }
 .Case-step { display: block; color: var(--muted); font-size: 12px; margin-bottom: 17px; }
 .Case-section h2, .Case-outcome h2 { margin: 0; font-size: clamp(25px, 2.6vw, 34px); font-weight: 400; letter-spacing: -.04em; line-height: 1.2; max-width: 530px; }
 .Case-prose { max-width: 620px; }
 .Case-prose p { font-size: 16px; line-height: 1.75; letter-spacing: -.015em; margin: 0 0 20px; }
 .Case-prose p:last-child { margin-bottom: 0; }
-.Case-outcome { max-width: 1200px; padding-top: 38px; padding-bottom: 48px; }
+.Case-outcome { max-width: var(--case-content-max); padding-top: 38px; padding-bottom: 48px; }
 .Case-outcome h2 { max-width: 750px; }
 .Case-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; border-top: 1px solid var(--rule); margin-top: 32px; padding-top: 28px; }
 [aria-labelledby="commerce-outcome"] .Case-metrics { border-top: 0; }
 .Case-metrics strong { display: block; font-weight: 400; font-size: clamp(38px, 4.5vw, 62px); line-height: 1.1; letter-spacing: -.055em; }
 .Case-metrics p { font-size: 14px; line-height: 1.6; margin: 12px 0 0; max-width: 270px; }
 .Case-note { font-size: 12px; color: var(--muted); line-height: 1.7; max-width: 750px; margin-top: 28px; }
-.Case-next { max-width: 1200px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-top: 32px; }
+.Case-next { max-width: var(--case-content-max); display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-top: 32px; }
 .Case-next a { text-decoration: none; font-size: 22px; letter-spacing: -.03em; }
 .Case-next a > span:first-child { display: block; font-size: 12px; letter-spacing: 0; color: var(--muted); margin-bottom: 12px; }
 .Case-next a:last-child { font-size: 14px; }
@@ -582,9 +596,24 @@ html.has-case-image-modal { overflow: hidden; }
   display: block; width: 100%; max-width: none; margin: 0; padding: 0;
 }
 .Case-layout-column .Case-section-heading { margin-bottom: 20px; }
-.Case-study--legacy > .Case-section--heading-only { max-width: 1320px; }
+/* Narrative rows share Shopify’s content rail. Pure artwork/photography and
+   opening heroes retain the wider media rail; original column ratios stay intact. */
+.Case-study--legacy > .Case-figure:has(.Case-prose) { max-width: var(--case-content-max); }
 .Case-layout-column .Case-prose { max-width: none; }
 .Case-layout-column .Case-section--continuation .Case-prose { grid-column: auto; }
+/* Chameleon: shared content width, headings grouped with body copy, and a
+   consistent story rhythm. Preserve original pairings and column proportions. */
+.Case-study--chameleon > .Case-figure { margin-bottom: 64px; }
+.Case-study--chameleon > .Case-section--heading-only { padding-block: 0 24px; }
+.Case-study--chameleon .Case-layout-column { gap: 32px; }
+.Case-study--chameleon .Case-prose > :last-child { margin-bottom: 0; }
+.Case-study--chameleon > .Case-section--summary { margin-bottom: 64px; padding-bottom: 0; }
+.Case-study--chameleon .Case-section--summary > .Case-prose { margin-top: 24px; max-width: 720px; }
+@media (max-width: 900px) {
+  .Case-study--chameleon .Case-layout-grid { grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
+  .Case-study--chameleon > .Case-figure,
+  .Case-study--chameleon > .Case-section--summary { margin-bottom: 48px; }
+}
 .Case-art--embed { width: fit-content; max-width: 100%; margin-inline: auto; }
 [data-scroll-media] { overflow: hidden; }
 .Case-layout-grid[data-scroll-media] .Case-art { width: 100%; margin-inline: 0; border-radius: 20px; }
